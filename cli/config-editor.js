@@ -111,6 +111,17 @@ var editor = module.exports = {
 
   save: function() {
     fs.writeFileSync(editor.filename, JSON.stringify(editor.load(), null, 2), "utf8");
+  },
+
+
+  /**
+
+    Removes the config file
+
+  **/
+
+  remove: function() {
+    fs.unlinkSync(editor.filename);
   }
 
 };
