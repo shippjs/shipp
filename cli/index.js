@@ -75,6 +75,10 @@ module.exports = function() {
     .action(data.remove);
 
   program
+    .command("defaults")
+    .action(listDefaults);
+
+  program
     .command("locals")
     .action(locals.list);
 
@@ -219,3 +223,29 @@ function listCommand(command, description) {
   console.log("    " + key + "  " + command.description);
 
 }
+
+
+
+/**
+
+  Lists defaults
+
+**/
+
+function listDefaults() {
+
+  require("./config-editor").loadDefaults();
+
+  console.log("");
+  console.log(chalk.magenta(" Note:"), "The following settings are the defaults and may or may not reflect your");
+  console.log("       app's configuration. To see your config, use the", chalk.yellow("config"), "command. To");
+  console.log("       restore defaults, use the", chalk.yellow("defaults:restore"), "command.");
+
+  data.list();
+  locals.list();
+  middleware.list();
+  pipelines.list();
+  routes.list();
+
+}
+
