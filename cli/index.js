@@ -79,6 +79,10 @@ module.exports = function() {
     .action(listDefaults);
 
   program
+    .command("defaults:restore")
+    .action(restoreDefaults);
+
+  program
     .command("locals")
     .action(locals.list);
 
@@ -249,3 +253,38 @@ function listDefaults() {
 
 }
 
+
+
+/**
+
+  Deletes the sneakers.json file and restores defaults.
+
+**/
+
+function restoreDefaults() {
+
+  var str;
+
+  console.log("");
+  str  = chalk.red("   Warning!") + " This command will delete your ";
+  str += chalk.yellow("sneakers.json") + " file (using default options instead)";
+  console.log(str);
+  console.log("   To continue type DELETE and press enter.");
+
+  process.stdout.write("   > ");
+
+  process.stdout.on("data", function(res) {
+    console.log("");
+    res = res.toString().trim();
+
+    if (/^delete$/i.test(res)) {
+      console.log("   We've restored defaults by deleting your", chalk.yellow("sneakers.json"), "file");
+      require("./config-editor").remove();
+    } else
+      console.log("   Nothing done. Come back if you need us.");
+
+    console.log("");
+    process.exit();
+  });
+
+}
