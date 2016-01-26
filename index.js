@@ -25,21 +25,19 @@ module.exports = function() {
 
   // Find next port
   function listen() {
-
     server.listen(PORT, function(err) {
-      server.once("close", function() {
-        console.log("Server closed, trying next port...");
-      });
       console.log("Server listening on port", PORT);
     });
+  }
 
-    server.on("error", function(err) {
-      server.close();
+  process.on("uncaughtException", function(err) {
+    if ("EADDRINUSE" === err.errno) {
+      console.log("Port " + PORT + " is in use, trying next...");
       PORT++;
       listen();
-    });
-
-  }
+    } else
+      process.exit(1);
+  });
 
   listen();
 
