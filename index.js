@@ -23,7 +23,7 @@ module.exports = function() {
   server.use(require("./lib/fonts.js")());
   server.use(require("./lib/images.js")());
   server.use(require("./lib/styles.js")());
-  server.use(require("./lib/views.js")(db));
+  server.use(require("./lib/views.js")(db, config));
 
   // Add scripts for in-house and vendor files
   server.use(scripts());
