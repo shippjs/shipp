@@ -7,11 +7,13 @@ module.exports = function() {
       server     = express(),
       scripts    = require("./lib/scripts"),
       cookies    = require("cookie-parser"),
+      sessions   = require("express-session"),
       db;
 
 
   // Set up sensible logging defaults, etc.
   server.use(cookies());
+  server.use(sessions({ secret : "password123", resave : false, saveUninitialized : true }));
 
   // Get JSON data (for database and view-rendering)
   db = require("./lib/database")();
