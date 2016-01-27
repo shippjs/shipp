@@ -18,14 +18,14 @@ module.exports = function() {
   server.use(require("./lib/fonts.js")());
   server.use(require("./lib/images.js")());
   server.use(require("./lib/styles.js")());
-  server.use(require("./lib/views.js")());
+  server.use(require("./lib/views.js")(db));
 
   // Add scripts for in-house and vendor files
   server.use(scripts());
   server.use(scripts({ path : "./vendor", url : "/vendor" }));
 
   // We must add the data last or it overwrites other paths
-  server.use(require("./lib/api.js")({ database : db }));
+  server.use(require("./lib/api.js")(db));
 
   // Find next port
   function listen() {
