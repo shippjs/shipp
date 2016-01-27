@@ -5,10 +5,14 @@ module.exports = function() {
       path       = require("path"),
       express    = require("express"),
       server     = express(),
-      scripts    = require("./lib/scripts");
+      scripts    = require("./lib/scripts"),
+      db;
 
 
   // Set up sensible logging defaults, etc.
+
+  // Get JSON data (for database and view-rendering)
+  db = require("./lib/database")();
 
   // Add routers
   server.use(require("./lib/fonts.js")());
@@ -21,7 +25,7 @@ module.exports = function() {
   server.use(scripts({ path : "./vendor", url : "/vendor" }));
 
   // We must add the data last or it overwrites other paths
-  server.use(require("./lib/data.js")());
+  server.use(require("./lib/api.js")({ database : db }));
 
   // Find next port
   function listen() {
