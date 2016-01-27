@@ -6,10 +6,12 @@ module.exports = function() {
       express    = require("express"),
       server     = express(),
       scripts    = require("./lib/scripts"),
+      cookies    = require("cookie-parser"),
       db;
 
 
   // Set up sensible logging defaults, etc.
+  server.use(cookies());
 
   // Get JSON data (for database and view-rendering)
   db = require("./lib/database")();
