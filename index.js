@@ -8,6 +8,7 @@ module.exports = function() {
       scripts    = require("./lib/scripts"),
       cookies    = require("cookie-parser"),
       sessions   = require("express-session"),
+      config     = require("./lib/config")(),
       db;
 
 
