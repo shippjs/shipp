@@ -25,7 +25,7 @@ module.exports = function() {
   server.use(scripts({ path : "./vendor", url : "/vendor" }));
 
   // We must add the data last or it overwrites other paths
-  server.use(require("./lib/api.js")(db));
+  server.use(require("./lib/api")(db));
 
   // Find next port
   function listen() {
