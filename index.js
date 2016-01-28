@@ -34,7 +34,7 @@ module.exports = function() {
 
   // Find next port
   function listen() {
-    server.listen(PORT, function(err) {
+    server.listen(config.port || PORT, function(err) {
       console.log("Server listening on port", PORT);
     });
   }
