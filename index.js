@@ -6,11 +6,11 @@
 */
 
 // Set up globals
-require("./lib/globals")();
+require("./server/globals")();
 
 module.exports = function() {
 
-  var server = require("./lib/main");
+  var server = require("./server/main");
 
   // Start the server
   server();
