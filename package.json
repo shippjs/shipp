@@ -28,6 +28,7 @@
     "webpack": "^1.12.12"
   },
   "devDependencies": {
+    "coffee-loader": "^0.7.2",
     "coffee-script": "^1.10.0",
     "handlebars": "^4.0.5",
     "jade": "^1.11.0",
