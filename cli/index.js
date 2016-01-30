@@ -52,7 +52,10 @@ function compilers() {
 
 
 function debug() {
-  console.log("Debug");
+  global.debug = true;
+  if (!/\bsneakers\b/.test(process.env.DEBUG))
+    process.env.DEBUG = ((process.env.DEBUG || "") + ",sneakers").replace(/^,/, "");
+  start();
 }
 
 
