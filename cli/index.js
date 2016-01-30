@@ -16,11 +16,8 @@ var yargs    = require("yargs"),
       debug     : debug,
       help      : help,
       init      : init,
-      install   : install,
       remove    : remove,
-      start     : start,
-      status    : status,
-      update    : update
+      start     : start
     };
 
 
@@ -30,24 +27,59 @@ module.exports = function() {
 
   // Throw error if command doesn't exist
   if (!commands[cmd]) {
-    console.log(chalk.red("Error:") + " That command doesn't exist! Try one of these...");
+    log("error", "That command doesn't exist! Try one of these...");
     help();
     process.exit();
   }
 
   // Run the command
-  commands[cmd].apply(null, argv || []);
+  console.log("");
+  commands[cmd].call(null, argv || []);
+  console.log("");
 
 }
 
 
-function add() {
-  console.log("Add");
+function log(type, str) {
+
+  var prefixes = {
+    info  : chalk.green("  info: "),
+    warn  : chalk.yellow("  warning: "),
+    error : chalk.red("  error: ")
+  };
+
+  if (!str) { str = type; type = "info"; }
+
+  // Automatically highlight commands
+  str = str.replace(/`([^`]+)`/g, function(str, match) { return chalk.cyan(match); });
+  console.log(prefixes[type] + str);
+
+}
+
+
+
+function add(args) {
+
+  if (!args.length)
+    return log("error", "You didn't give a compiler. Try `sneakers add handlebars` or `sneakers add typescript`.");
+
+  log("info", "Adding compilers " + chalk.cyan(args.join(" ")));
+
 }
 
 
 function compilers() {
-  console.log("Compilers");
+
+  var list = global.config.compilers || [];
+
+  if (!list.length)
+    return log("info", "Your project doesn't have any additional compilers. You can add one with `sneakers add <compiler>`")
+
+  log("info", "Your project contains the following compilers:");
+  global.config.compilers.forEach(function(compiler) {
+    console.log("   • " + compiler)
+  });
+
 }
 
 
@@ -65,12 +97,9 @@ function help() {
 
 
 function init() {
-  console.log("Init");
-}
-
-
-function install() {
-  console.log("install");
+  log("info", "Creating `sneakers.config.js`");
+  log("info", "Creating `package.json`");
+  log("info", "Installing packages");
 }
 
 
@@ -84,12 +113,3 @@ function start() {
   require("../server/")();
 }
 
-
-function status(showDebug) {
-  return true;
-}
-
-
-function update() {
-  console.log("update");
-}
