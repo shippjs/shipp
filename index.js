@@ -8,13 +8,10 @@
 */
 
 
-var yargs = require("yargs"),
-    fs    = require("fs"),
+var fs    = require("fs"),
     chalk = require("chalk"),
     cli   = require("./cli/"),
-    utils = require("./server/utils"),
-    argv  = yargs.argv._,
-    cmd;
+    utils = require("./server/utils");
 
 
 // Ensure project has been initialized
@@ -30,7 +27,4 @@ try {
 require("./server/globals")();
 
 // Parse commands
-cmd = argv.shift() || "start";
-
-// Run command
-cli(cmd, argv);
+cli();

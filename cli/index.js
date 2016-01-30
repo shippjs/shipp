@@ -5,9 +5,11 @@
 
 */
 
-var fs       = require("fs"),
+var yargs    = require("yargs"),
+    fs       = require("fs"),
     chalk    = require("chalk"),
     utils    = require("../server/utils"),
+    argv     = yargs.argv._,
     commands = {
       add       : add,
       compilers : compilers,
@@ -22,7 +24,9 @@ var fs       = require("fs"),
     };
 
 
-module.exports = function(cmd, args) {
+module.exports = function() {
+
+  cmd = argv.shift() || "start";
 
   // Throw error if command doesn't exist
   if (!commands[cmd]) {
@@ -32,7 +36,7 @@ module.exports = function(cmd, args) {
   }
 
   // Run the command
-  commands[cmd].apply(null, args || []);
+  commands[cmd].apply(null, argv || []);
 
 }
 
