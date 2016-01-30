@@ -25,7 +25,8 @@
     "lowdb": "^0.12.2",
     "memory-fs": "^0.3.0",
     "st": "^1.1.0",
-    "webpack": "^1.12.12"
+    "webpack": "^1.12.12",
+    "yargs": "^3.32.0"
   },
   "devDependencies": {
     "coffee-loader": "^0.7.2",
