@@ -103,8 +103,13 @@ function init() {
 }
 
 
-function remove() {
-  console.log("remove");
+function remove(args) {
+
+  if (!args.length)
+    return log("error", "You didn't give a compiler. Try `sneakers remove handlebars` or `sneakers remove typescript`.");
+
+  log("info", "Removing compilers " + chalk.cyan(args.join(" ")));
+
 }
 
 
