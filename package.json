@@ -24,7 +24,7 @@
     "lowdb": "^0.12.2",
     "memory-fs": "^0.3.0",
     "st": "^1.1.0",
-    "superloader": "^0.1.0",
+    "superloader": "^0.1.1",
     "webpack": "^1.12.12",
     "yargs": "^3.32.0"
   }
