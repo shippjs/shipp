@@ -8,7 +8,7 @@
 var yargs    = require("yargs"),
     fs       = require("fs"),
     chalk    = require("chalk"),
-    utils    = require("../server/utils"),
+    Utils    = require("../server/utils"),
     argv     = yargs.argv._,
     commands = {
       add       : add,
