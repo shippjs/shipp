@@ -17,6 +17,7 @@
     "bluebird": "^3.2.1",
     "browser-sync": "^2.11.1",
     "chalk": "^1.1.1",
+    "chokidar": "^1.4.2",
     "cookie-parser": "^1.4.1",
     "express": "^4.13.4",
     "express-session": "^1.13.0",
