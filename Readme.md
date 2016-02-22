@@ -1,14 +1,13 @@
 # sneakers
 
 sneakers is your zero configuration front-end dream tool. By using sensible
-defaults, and a handy CLI, you can get almost any dev-project up and running.
-As for the haters, you can of course override the config, we just try to make
-it unncessary.
+defaults, and a handy CLI, you can get almost any dev-project up and running
+with no work. Even dependencies are hot-loaded! As for the haters, you can of
+course override the config, we just try to make it unnecessary.
 
-Most front-end work involves adopting the exact same best practices (version
-hashing, etagging, image compression, etc.) Our goal is to fully automate
-front-end pipelines from development to deployment with minimal configuration.
-**This is simply the first step.**
+The end goal is to fully automate front-end pipelines from development to
+Dockerized microservice deployment with minimal configuration. We're not there
+yet: this is the first step of many!
 
 How do we do this with zero configuration? See below!
 
