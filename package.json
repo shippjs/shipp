@@ -25,6 +25,7 @@
     "lodash": "^4.0.1",
     "lowdb": "^0.12.2",
     "memory-fs": "^0.3.0",
+    "morgan": "^1.7.0",
     "st": "^1.1.0",
     "superloader": "^0.2.1",
     "universql": "^0.1.0",
