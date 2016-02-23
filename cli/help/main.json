@@ -49,7 +49,7 @@
     "description": "adds a compilation pipeline"
   },
   {
-    "command": "pipelines:add <extension> <chain>",
+    "command": "pipelines:add <extension> <pipeline>",
     "description": "adds a compilation pipeline"
   },
   {
