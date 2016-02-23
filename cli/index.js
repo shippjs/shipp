@@ -118,6 +118,10 @@ function showGrid(grid, options) {
 };
 
 
+function readFile(p) {
+  return require("fs").readFileSync(p, "utf8");
+}
+
 function showHelp() {
 
   console.log("");
