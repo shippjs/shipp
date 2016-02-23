@@ -159,10 +159,8 @@ function start() {
 
 function listFolders(type) {
 
-  // Set up globals
-  require("../server/globals")();
-
-  var folders = global.config[type].slice(0),
+  var config  = require("../server/config")(),
+      folders = config[type].slice(0),
       columns = [];
 
   folders.forEach(function(folder) {
@@ -181,10 +179,8 @@ function listFolders(type) {
 
 function listPipelines() {
 
-  // Set up globals
-  require("../server/globals")();
-
-  var pipelines = Object.assign({}, global.config.pipelines),
+  var config = require("../server/config")(),
+      pipelines = Object.assign({}, config.pipelines),
       columns = [];
 
   for (var key in pipelines)
