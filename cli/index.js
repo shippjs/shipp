@@ -136,9 +136,7 @@ function showHelp() {
   console.log(chalk.cyan(" Commands:"));
   console.log("");
 
-  var help = JSON.parse(fs.readFileSync(path.join(__dirname, "./help/main.json"), "utf8"));
-
-  help.forEach(listCommand);
+  readHelpFile("main.json").forEach(listCommand);
 
 }
 
