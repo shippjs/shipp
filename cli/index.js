@@ -47,6 +47,11 @@ module.exports = function() {
     .command("pipelines:add <extension> <pipeline>")
     .action(addPipeline);
 
+  program
+    .command("pipelines:remove <extension>")
+    .action(removePipeline);
+
+  program
     .command("scripts")
     .action(function() { listFolders("scripts"); });
 
@@ -220,3 +225,27 @@ function addPipeline(ext, pipeline) {
 
 }
 
+
+function removePipeline(ext) {
+
+  var editor = require("./editor");
+      ext    = ext.replace(/^[\*\.]*/, ""),
+      key    = "pipelines." + ext,
+      prev   = editor.get(key);
+
+  console.log("");
+
+  if (!prev) {
+    if (["html", "css", "js"].indexOf(ext) > -1)
+      console.log("   " + chalk.red("Error:") + " you can't remove the pipeline for " + chalk.yellow("*." + ext) + " files (it's static!)");
+    else
+      console.log("   " + chalk.red("No Action:") + " there was no pipeline associated with " + chalk.yellow("*." + ext) + " files ");
+  } else {
+    editor.unset("pipelines." + ext);
+    editor.save();
+    console.log("   " + chalk.cyan("Removed:") + " sneakers will no longer process " + chalk.yellow("*." + ext) + " files with " + chalk.yellow(prev));
+  }
+
+  console.log("");
+
+}
