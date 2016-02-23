@@ -44,6 +44,9 @@ module.exports = function() {
     .action(listPipelines);
 
   program
+    .command("pipelines:add <extension> <pipeline>")
+    .action(addPipeline);
+
     .command("scripts")
     .action(function() { listFolders("scripts"); });
 
@@ -189,3 +192,31 @@ function listPipelines() {
   });
 
 };
+
+
+function addPipeline(ext, pipeline) {
+
+  var editor = require("./editor");
+      ext    = ext.replace(/^[\*\.]*/, ""),
+      key    = "pipelines." + ext,
+      prev   = editor.get(key);
+
+  function suffix(val) {
+    return chalk.yellow("*." + ext) + " files with " + chalk.yellow(val);
+  };
+
+  console.log("");
+
+  if (prev === pipeline) {
+    console.log("   " + chalk.red("No Action:") + " sneakers was already processing " + suffix(pipeline));
+  } else {
+    editor.set(key, pipeline);
+    editor.save();
+    if (prev && prev !== pipeline) console.log("   " + chalk.cyan("Removed:") + " sneakers will no longer process " + suffix(prev));
+    console.log("   " + chalk.cyan("Added:") + " sneakers will process " + suffix(editor.get(key)));
+  }
+
+  console.log("");
+
+}
+
