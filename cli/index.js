@@ -5,116 +5,181 @@
 
 */
 
-var yargs    = require("yargs"),
-    fs       = require("fs"),
-    chalk    = require("chalk"),
-    Utils    = require("../server/utils"),
-    argv     = yargs.argv._,
-    commands = {
-      add       : add,
-      compilers : compilers,
-      debug     : debug,
-      help      : help,
-      init      : init,
-      remove    : remove,
-      start     : start
-    };
+var program = require("commander"),
+    chalk = require("chalk"),
+    fs = require("fs"),
+    path = require("path");
 
 
 module.exports = function() {
 
-  cmd = argv.shift() || "start";
+  program
+    .version("0.7.0")
 
-  // Throw error if command doesn't exist
-  if (!commands[cmd]) {
-    log("error", "That command doesn't exist! Try one of these...");
-    help();
-    process.exit();
-  }
+  program
+    .command("start")
+    .action(start);
 
-  // Run the command
-  console.log("");
-  commands[cmd].call(null, argv || []);
-  console.log("");
+  program
+    .command("help")
+    .action(showHelp);
 
+  program
+    .command("config")
+    .action(function() {
+      listPipelines()
+      listFolders("data");
+      listFolders("scripts");
+      listFolders("statics");
+      listFolders("styles");
+      listFolders("views");
+    });
+
+  program
+    .command("data")
+    .action(function() { listFolders("data"); });
+
+  program
+    .command("pipelines")
+    .action(listPipelines);
+
+  program
+    .command("scripts")
+    .action(function() { listFolders("scripts"); });
+
+  program
+    .command("statics")
+    .action(function() { listFolders("statics"); });
+
+  program
+    .command("styles")
+    .action(function() { listFolders("styles"); });
+
+  program
+    .command("views")
+    .action(function() { listFolders("views"); });
+
+  program
+    .command("*")
+    .action(function() { console.log("EMPTY!"); });
+
+  // Set start as default argument
+  if ("undefined" == typeof process.argv[2]) process.argv[2] = "start";
+  program.parse(process.argv);
+
+};
+
+
+function pad(str, len) {
+  while (str.length < len) str += " ";
+  return str;
 }
 
 
-function log(type, str) {
+function listCommand(command, description) {
 
-  var prefixes = {
-    info  : chalk.green("  info: "),
-    warn  : chalk.yellow("  warning: "),
-    error : chalk.red("  error: ")
-  };
+  var key = command.command;
 
-  if (!str) { str = type; type = "info"; }
+  // Allow for blank line
+  if ("" === key) return console.log("");
 
-  // Automatically highlight commands
-  str = str.replace(/`([^`]+)`/g, function(str, match) { return chalk.cyan(match); });
-  console.log(prefixes[type] + str);
+  // Pad key
+  key = pad(key, 35);
 
+  // Replace <commands> with yellow
+  key = key.replace(/\<[^\>]+\>/g, function(x) { return chalk.yellow(x) });;
+  console.log("    " + key + "  " + command.description);
 }
 
 
+function showGrid(grid, options) {
 
-function add(args) {
+  options = options || {};
 
-  if (!args.length)
-    return log("error", "You didn't give a compiler. Try `sneakers add handlebars` or `sneakers add typescript`.");
-
-  log("info", "Adding compilers " + chalk.cyan(args.join(" ")));
-
-}
-
-
-function compilers() {
-
-  var list = global.config.compilers || [];
-
-  if (!list.length)
-    return log("info", "Your project doesn't have any additional compilers. You can add one with `sneakers add <compiler>`")
-
-  log("info", "Your project contains the following compilers:");
-  global.config.compilers.forEach(function(compiler) {
-    console.log("   • " + compiler)
+  grid.sort(function(a, b) {
+    return (a[0] < b[0]) ? -1 : (a[0] > b[0]) ? 1 : 0;
   });
 
-}
+  console.log("");
+
+  if (options.title) {
+    console.log(" " + chalk.cyan(options.title));
+    console.log("");
+  }
+
+  if (options.headers)
+    console.log(chalk.yellow("    " + pad(options.headers[0], options.len) + options.headers[1]));
+
+  for (var i = 0, n = grid.length; i < n; i++)
+    console.log("    " + pad(grid[i][0], options.len) + grid[i][1]);
+
+  console.log("");
+
+};
 
 
-function debug() {
-  global.debug = true;
-  if (!/\bsneakers\b/.test(process.env.DEBUG))
-    process.env.DEBUG = ((process.env.DEBUG || "") + ",sneakers").replace(/^,/, "");
-  start();
-}
+function showHelp() {
 
+  console.log("");
+  console.log(chalk.cyan(" Usage:"));
+  console.log("");
+  console.log("    " + chalk.magenta("sneakers") + chalk.yellow(" <command> [<args>]"));
+  console.log("");
+  console.log(chalk.cyan(" Commands:"));
+  console.log("");
 
-function help() {
-  console.log("Help");
-}
+  var help = JSON.parse(fs.readFileSync(path.join(__dirname, "./help/main.json"), "utf8"));
 
-
-function init() {
-  log("info", "Creating `sneakers.config.js`");
-  log("info", "Creating `package.json`");
-  log("info", "Installing packages");
-}
-
-
-function remove(args) {
-
-  if (!args.length)
-    return log("error", "You didn't give a compiler. Try `sneakers remove handlebars` or `sneakers remove typescript`.");
-
-  log("info", "Removing compilers " + chalk.cyan(args.join(" ")));
+  help.forEach(listCommand);
 
 }
 
 
 function start() {
-  console.log("Starting server...");
+
+  console.log(chalk.green.bold("\nStarting server...\n"));
   require("../server/")();
+
 }
 
+
+function listFolders(type) {
+
+  // Set up globals
+  require("../server/globals")();
+
+  var folders = global.config[type].slice(0),
+      columns = [];
+
+  folders.forEach(function(folder) {
+    columns.push([folder.path, folder.url]);
+  });
+
+  type = type[0].toUpperCase() + type.slice(1) + ":";
+  showGrid(columns, {
+    title   : type,
+    len     : 20,
+    headers : ["Directory", "Route"]
+   });
+
+}
+
+
+function listPipelines() {
+
+  // Set up globals
+  require("../server/globals")();
+
+  var pipelines = Object.assign({}, global.config.engines),
+      columns = [];
+
+  for (var key in pipelines)
+    columns.push(["*." + key, pipelines[key]])
+
+  showGrid(columns, {
+    title   : "Pipelines:",
+    len     : 20,
+    headers : ["Extension", "Pipeline"]
+  });
+
+};
