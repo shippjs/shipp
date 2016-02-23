@@ -122,6 +122,10 @@ function readFile(p) {
   return require("fs").readFileSync(p, "utf8");
 }
 
+function readHelpFile(p) {
+  return JSON.parse(readFile(require("path").join(__dirname, "help", "main.json"), "utf8"));
+}
+
 function showHelp() {
 
   console.log("");
