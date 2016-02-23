@@ -176,7 +176,7 @@ function listPipelines() {
   // Set up globals
   require("../server/globals")();
 
-  var pipelines = Object.assign({}, global.config.engines),
+  var pipelines = Object.assign({}, global.config.pipelines),
       columns = [];
 
   for (var key in pipelines)
