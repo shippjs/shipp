@@ -1,0 +1,122 @@
+[
+  {
+    "command": "start",
+    "description": "start the sneakers server"
+  },
+  {
+    "command": "help",
+    "description": "lists commands and display help"
+  },
+  {
+    "command": "config",
+    "description": "shows configuration options"
+  },
+  {
+    "command": ""
+  },
+  {
+    "command": "data",
+    "description": "lists data directories"
+  },
+  {
+    "command": "data:add <extension> <chain>",
+    "description": "adds a data directory"
+  },
+  {
+    "command": "data:remove <extension>",
+    "description": "removes a data directory"
+  },
+  {
+    "command": ""
+  },
+  {
+    "command": "globals",
+    "description": "lists global template variables"
+  },
+  {
+    "command": "globals:add <extension> <chain>",
+    "description": "adds a global template variable"
+  },
+  {
+    "command": "globals:remove <extension>",
+    "description": "removes a global template variable"
+  },
+  {
+    "command": ""
+  },
+  {
+    "command": "pipelines",
+    "description": "adds a compilation pipeline"
+  },
+  {
+    "command": "pipelines:add <extension> <chain>",
+    "description": "adds a compilation pipeline"
+  },
+  {
+    "command": "pipelines:remove <extension>",
+    "description": "removes a compilation pipeline"
+  },
+  {
+    "command": ""
+  },
+  {
+    "command": "scripts",
+    "description": "lists script directories"
+  },
+  {
+    "command": "scripts:add <directory>",
+    "description": "adds a script directory"
+  },
+  {
+    "command": "scripts:remove <directory>",
+    "description": "removes a script directory"
+  },
+  {
+    "command": ""
+  },
+  {
+    "command": "statics",
+    "description": "lists static directories"
+  },
+  {
+    "command": "statics:add <directory>",
+    "description": "adds a static directory"
+  },
+  {
+    "command": "statics:remove <directory>",
+    "description": "removes a static directory"
+  },
+  {
+    "command": ""
+  },
+  {
+    "command": "styles",
+    "description": "lists style directories"
+  },
+  {
+    "command": "styles:add <directory>",
+    "description": "adds a style directory"
+  },
+  {
+    "command": "styles:remove <directory>",
+    "description": "removes a style directory"
+  },
+  {
+    "command": ""
+  },
+  {
+    "command": "views",
+    "description": "lists view directories"
+  },
+  {
+    "command": "views:add <directory>",
+    "description": "adds a view directory"
+  },
+  {
+    "command": "views:remove <directory>",
+    "description": "removes a view directory"
+  },
+  {
+    "command": ""
+  }
+]
