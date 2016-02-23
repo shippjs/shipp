@@ -30,16 +30,16 @@
     "command": ""
   },
   {
-    "command": "globals",
-    "description": "lists global template variables"
+    "command": "locals",
+    "description": "lists local template variables"
   },
   {
-    "command": "globals:add <extension> <chain>",
-    "description": "adds a global template variable"
+    "command": "locals:add <extension> <chain>",
+    "description": "adds a local template variable"
   },
   {
-    "command": "globals:remove <extension>",
-    "description": "removes a global template variable"
+    "command": "locals:remove <extension>",
+    "description": "removes a local template variable"
   },
   {
     "command": ""
