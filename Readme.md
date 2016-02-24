@@ -96,7 +96,7 @@ This is a fairly advanced topic and needs to be covered in more detail.
 ## Recommended Directory Structure
 
 Not only does sneakers cover many directory structures automatically, you can
-use the CLI or `sneakers.config.js` file to roll-your-own.
+use the CLI or `sneakers.json` file to roll-your-own.
 
 Here's what we recommend:
 
