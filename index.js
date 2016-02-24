@@ -7,8 +7,4 @@
 
 **/
 
-
-var cli = require("./cli/");
-
-// Parse commands
-cli();
+require("./cli/")();
