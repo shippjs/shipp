@@ -37,10 +37,17 @@ var editor = module.exports = {
     if (editor.config) return editor.config;
 
     try {
-      editor.config = JSON.parse(fs.readFileSync(editor.filename, "utf8"));
+      editor.config = fs.readFileSync(editor.filename, "utf8");
     } catch (err) {
-      editor.config = {};
+      editor.config = Object.assign({}, editor.defaults);
     }
+
+    // We don't want this in the try/catch loop as it could overwrite custom
+    // configuration files
+    if ("string" === typeof editor.config)
+      editor.config = JSON.parse(editor.config);
+
+    return editor.config;
 
   },
 
