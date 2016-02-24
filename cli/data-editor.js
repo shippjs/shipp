@@ -10,8 +10,7 @@
 //  Dependencies
 //
 
-var chalk = require("chalk"),
-    utils = require("./cli-utils");
+var chalk = require("chalk");
 
 
 
