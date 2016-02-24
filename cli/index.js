@@ -79,60 +79,11 @@ module.exports = function() {
 };
 
 
-function pad(str, len) {
-  while (str.length < len) str += " ";
-  return str;
-}
+function start() {
 
+  console.log(chalk.green.bold("\nStarting server...\n"));
+  require("../server/")();
 
-function listCommand(command, description) {
-
-  var key = command.command;
-
-  // Allow for blank line
-  if ("" === key) return console.log("");
-
-  // Pad key
-  key = pad(key, 35);
-
-  // Replace <commands> with yellow
-  key = key.replace(/\<[^\>]+\>/g, function(x) { return chalk.yellow(x) });;
-  console.log("    " + key + "  " + command.description);
-}
-
-
-function showGrid(grid, options) {
-
-  options = options || {};
-
-  grid.sort(function(a, b) {
-    return (a[0] < b[0]) ? -1 : (a[0] > b[0]) ? 1 : 0;
-  });
-
-  console.log("");
-
-  if (options.title) {
-    console.log(" " + chalk.cyan(options.title));
-    console.log("");
-  }
-
-  if (options.headers)
-    console.log(chalk.yellow("    " + pad(options.headers[0], options.len) + options.headers[1]));
-
-  for (var i = 0, n = grid.length; i < n; i++)
-    console.log("    " + pad(grid[i][0], options.len) + grid[i][1]);
-
-  console.log("");
-
-};
-
-
-function readFile(p) {
-  return require("fs").readFileSync(p, "utf8");
-}
-
-function readHelpFile(p) {
-  return JSON.parse(readFile(require("path").join(__dirname, "help", "main.json"), "utf8"));
 }
 
 function showHelp() {
@@ -150,30 +101,23 @@ function showHelp() {
 }
 
 
-function start() {
 
-  console.log(chalk.green.bold("\nStarting server...\n"));
-  require("../server/")();
-
+readHelpFile = function(p) {
+  return JSON.parse(utils.readFile(require("path").join(__dirname, "help", "main.json"), "utf8"));
 }
 
 
-function listFolders(type) {
+listCommand = function(command, description) {
 
-  var config  = require("../server/config")(),
-      folders = config[type].slice(0),
-      columns = [];
+  var key = command.command;
 
-  folders.forEach(function(folder) {
-    columns.push([folder.path, folder.url]);
-  });
+  // Allow for blank line
+  if ("" === key) return console.log("");
 
-  type = type[0].toUpperCase() + type.slice(1) + ":";
-  showGrid(columns, {
-    title   : type,
-    len     : 20,
-    headers : ["Directory", "Route"]
-   });
+  // Pad key
+  key = utils.pad(key, 39);
 
+  // Replace <commands> with yellow
+  key = key.replace(/\"?\<[^\>]+\>\"?/g, function(x) { return chalk.yellow(x) });;
+  console.log("    " + key + "  " + command.description);
 }
-
