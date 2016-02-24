@@ -51,6 +51,18 @@ module.exports = function() {
     .action(data.remove);
 
   program
+    .command("locals")
+    .action(locals.list);
+
+  program
+    .command("locals:add <key> <value>")
+    .action(locals.add);
+
+  program
+    .command("locals:remove <key>")
+    .action(locals.remove);
+
+  program
     .command("pipelines")
     .action(pipelines.list);
 
