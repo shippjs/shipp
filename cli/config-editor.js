@@ -21,6 +21,8 @@ var editor = module.exports = {
 
   config: null,
 
+  defaults: require("../server/defaults.js"),
+
   filename: path.join(process.cwd(), "sneakers.json"),
 
 
