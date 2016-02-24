@@ -5,11 +5,13 @@
 
 */
 
-var program = require("commander"),
-    chalk = require("chalk"),
-    fs = require("fs"),
-    path = require("path");
+var program   = require("commander"),
+    chalk     = require("chalk"),
+    data      = require("./data-editor"),
+    locals    = require("./locals-editor"),
     pipelines = require("./pipelines-editor"),
+    routes    = require("./routes-editor"),
+    utils     = require("./cli-utils");
 
 
 module.exports = function() {
