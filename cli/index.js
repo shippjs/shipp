@@ -9,6 +9,7 @@ var program = require("commander"),
     chalk = require("chalk"),
     fs = require("fs"),
     path = require("path");
+    pipelines = require("./pipelines-editor"),
 
 
 module.exports = function() {
@@ -41,15 +42,15 @@ module.exports = function() {
 
   program
     .command("pipelines")
-    .action(listPipelines);
+    .action(pipelines.list);
 
   program
     .command("pipelines:add <extension> <pipeline>")
-    .action(addPipeline);
+    .action(pipelines.add);
 
   program
     .command("pipelines:remove <extension>")
-    .action(removePipeline);
+    .action(pipelines.remove);
 
   program
     .command("scripts")
@@ -176,72 +177,3 @@ function listFolders(type) {
 
 }
 
-
-function listPipelines() {
-
-  var config = require("../server/config")(),
-      pipelines = Object.assign({}, config.pipelines),
-      columns = [];
-
-  for (var key in pipelines)
-    columns.push(["*." + key, pipelines[key]])
-
-  showGrid(columns, {
-    title   : "Pipelines:",
-    len     : 20,
-    headers : ["Extension", "Pipeline"]
-  });
-
-};
-
-
-function addPipeline(ext, pipeline) {
-
-  var editor = require("./editor");
-      ext    = ext.replace(/^[\*\.]*/, ""),
-      key    = "pipelines." + ext,
-      prev   = editor.get(key);
-
-  function suffix(val) {
-    return chalk.yellow("*." + ext) + " files with " + chalk.yellow(val);
-  };
-
-  console.log("");
-
-  if (prev === pipeline) {
-    console.log("   " + chalk.red("No Action:") + " sneakers was already processing " + suffix(pipeline));
-  } else {
-    editor.set(key, pipeline);
-    editor.save();
-    if (prev && prev !== pipeline) console.log("   " + chalk.cyan("Removed:") + " sneakers will no longer process " + suffix(prev));
-    console.log("   " + chalk.cyan("Added:") + " sneakers will process " + suffix(editor.get(key)));
-  }
-
-  console.log("");
-
-}
-
-
-function removePipeline(ext) {
-
-  var editor = require("./editor");
-      ext    = ext.replace(/^[\*\.]*/, ""),
-      key    = "pipelines." + ext,
-      prev   = editor.get(key);
-
-  console.log("");
-
-  if (!prev) {
-    if (["html", "css", "js"].indexOf(ext) > -1)
-      console.log("   " + chalk.red("Error:") + " you can't remove the pipeline for " + chalk.yellow("*." + ext) + " files (it's static!)");
-    else
-      console.log("   " + chalk.red("No Action:") + " there was no pipeline associated with " + chalk.yellow("*." + ext) + " files ");
-  } else {
-    editor.unset("pipelines." + ext);
-    editor.save();
-    console.log("   " + chalk.cyan("Removed:") + " sneakers will no longer process " + chalk.yellow("*." + ext) + " files with " + chalk.yellow(prev));
-  }
-
-  console.log("");
-
-}
