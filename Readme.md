@@ -2,8 +2,14 @@
 
 sneakers is your zero configuration front-end dream tool. By using sensible
 defaults, and a handy CLI, you can get almost any dev-project up and running
-with no work. Even dependencies are hot-loaded! As for the haters, you can of
-course override the config, we just try to make it unnecessary.
+with no work. Compilation pipelines are easy, and dependencies are hot-loaded.
+As for the haters, you can of course override the config, we just try to make
+it unnecessary.
+
+For example, adding a Jade-Handlebars-HTML Minifier pipeline requires no grunts
+and no gulps. Assuming we denote these with "jbs" extension, simply type:
+
+`$ sneakers pipelines:add *.jbs jade>handlebars>html-minifier`
 
 The end goal is to fully automate front-end pipelines from development to
 Dockerized microservice deployment with minimal configuration. We're not there
