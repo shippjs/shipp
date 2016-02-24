@@ -19,12 +19,12 @@
     "description": "lists data directories"
   },
   {
-    "command": "data:add <extension> <chain>",
-    "description": "adds a data directory"
+    "command": "data:add <folder>",
+    "description": "adds a data folder"
   },
   {
-    "command": "data:remove <extension>",
-    "description": "removes a data directory"
+    "command": "data:remove <folder>",
+    "description": "removes a data folder"
   },
   {
     "command": ""
@@ -34,12 +34,12 @@
     "description": "lists local template variables"
   },
   {
-    "command": "locals:add <extension> <chain>",
-    "description": "adds a local template variable"
+    "command": "locals:add <key> <value>",
+    "description": "adds a variable for templates (supports dot-notation)"
   },
   {
-    "command": "locals:remove <extension>",
-    "description": "removes a local template variable"
+    "command": "locals:remove <key>",
+    "description": "removes a variable for templates"
   },
   {
     "command": ""
@@ -49,7 +49,7 @@
     "description": "adds a compilation pipeline"
   },
   {
-    "command": "pipelines:add <extension> <pipeline>",
+    "command": "pipelines:add <extension> \"<pipeline>\"",
     "description": "adds a compilation pipeline"
   },
   {
@@ -60,61 +60,28 @@
     "command": ""
   },
   {
-    "command": "scripts",
-    "description": "lists script directories"
+    "command": "routes",
+    "description": "lists routes and folders"
   },
   {
-    "command": "scripts:add <directory>",
-    "description": "adds a script directory"
+    "command": "routes:scripts <route> <folder>",
+    "description": "adds a folder contain scripts"
   },
   {
-    "command": "scripts:remove <directory>",
-    "description": "removes a script directory"
+    "command": "routes:statics <route> <folder>",
+    "description": "adds a folder containing static assets"
   },
   {
-    "command": ""
+    "command": "routes:styles <route> <folder>",
+    "description": "adds a folder containg stylesheets"
   },
   {
-    "command": "statics",
-    "description": "lists static directories"
+    "command": "routes:views <route> <folder>",
+    "description": "adds a folder containins views"
   },
   {
-    "command": "statics:add <directory>",
-    "description": "adds a static directory"
-  },
-  {
-    "command": "statics:remove <directory>",
-    "description": "removes a static directory"
-  },
-  {
-    "command": ""
-  },
-  {
-    "command": "styles",
-    "description": "lists style directories"
-  },
-  {
-    "command": "styles:add <directory>",
-    "description": "adds a style directory"
-  },
-  {
-    "command": "styles:remove <directory>",
-    "description": "removes a style directory"
-  },
-  {
-    "command": ""
-  },
-  {
-    "command": "views",
-    "description": "lists view directories"
-  },
-  {
-    "command": "views:add <directory>",
-    "description": "adds a view directory"
-  },
-  {
-    "command": "views:remove <directory>",
-    "description": "removes a view directory"
+    "command": "routes:remove <route>",
+    "description": "removes a script folder"
   },
   {
     "command": ""
