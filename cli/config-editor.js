@@ -93,7 +93,7 @@ var editor = module.exports = {
   **/
 
   save: function() {
-    fs.writeFileSync(filename, JSON.stringify(editor.load(), null, 2), "utf8");
+    fs.writeFileSync(editor.filename, JSON.stringify(editor.load(), null, 2), "utf8");
   }
 
 };
