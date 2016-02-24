@@ -62,26 +62,6 @@ module.exports = function() {
     .command("pipelines:remove <extension>")
     .action(pipelines.remove);
 
-  program
-    .command("scripts")
-    .action(function() { listFolders("scripts"); });
-
-  program
-    .command("statics")
-    .action(function() { listFolders("statics"); });
-
-  program
-    .command("styles")
-    .action(function() { listFolders("styles"); });
-
-  program
-    .command("views")
-    .action(function() { listFolders("views"); });
-
-  program
-    .command("*")
-    .action(function() { console.log("EMPTY!"); });
-
   // Set start as default argument
   if ("undefined" == typeof process.argv[2]) process.argv[2] = "start";
   program.parse(process.argv);
