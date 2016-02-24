@@ -108,7 +108,7 @@ project/
 ├─ scripts/     # (alt: js)
 ├─ styles/      # (alt: css)
 ├─ vendor/      # (alt: components, vendors)
-└─ views/       # (alt: pages)
+└─ views/
 
 ```
 Note that `scripts` contain your own JavaScript and `vendor` contains third-party.
