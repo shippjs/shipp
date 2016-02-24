@@ -40,7 +40,15 @@ module.exports = function() {
 
   program
     .command("data")
-    .action(function() { listFolders("data"); });
+    .action(data.list);
+
+  program
+    .command("data:add <folder>")
+    .action(data.add);
+
+  program
+    .command("data:remove <folder>")
+    .action(data.remove);
 
   program
     .command("pipelines")
