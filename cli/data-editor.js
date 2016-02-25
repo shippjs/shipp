@@ -33,15 +33,18 @@ module.exports = {
         str;
 
     console.log("");
+    console.log(chalk.cyan(" Data:"));
+    console.log("");
+
     if (!data.length)
-      console.log(chalk.cyan("   Info:"), "there are no data directories in your project");
+      console.log("   There are no data directories in your project");
     else {
       str = chalk.yellow(data.pop());
       if (data.length) {
         for (var i = 0; i < data.length; i++) data[i] = chalk.yellow(data[i]);
         str = (data.join(", ") + " and " + str).replace(/\s\s+/g, "");
       }
-      console.log(chalk.cyan("   Info:"), "current data directories include", str);
+      console.log("   Current data directories include", str);
     }
 
     console.log("");
