@@ -54,9 +54,9 @@ settings using the CLI. For example, `$ sneakers pipelines:add html dust`
   `   ├─ legal.jade
   `   └─ privacy.jade
   ```
-  turns into `/about/legal` and `/about/privacy`.
+  compiles jade into html for routes `/about/legal` and `/about/privacy`.
 
-3. **Scripts named index.* will compile via webpack**.
+3. **Scripts named index.* will compile to single files via webpack**.
   ```
   scripts/
   └─ app/
@@ -113,7 +113,7 @@ project/
 ├─ images/
 ├─ scripts/     # (alt: js)
 ├─ styles/      # (alt: css)
-├─ vendor/      # (alt: components, vendors)
+├─ vendor/      # (alt: components)
 └─ views/
 
 ```
