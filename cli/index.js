@@ -74,6 +74,30 @@ module.exports = function() {
     .command("pipelines:remove <extension>")
     .action(pipelines.remove);
 
+  program
+    .command("routes")
+    .action(routes.list);
+
+  program
+    .command("routes:scripts <route> <folder> <bundleFolders>")
+    .action(routes.scripts);
+
+  program
+    .command("routes:statics <route> <folder>")
+    .action(routes.statics);
+
+  program
+    .command("routes:styles <route> <folder>")
+    .action(routes.styles);
+
+  program
+    .command("routes:views <route> <folder>")
+    .action(routes.views);
+
+  program
+    .command("routes:remove <route>")
+    .action(routes.remove);
+
   // Set start as default argument
   if ("undefined" == typeof process.argv[2]) process.argv[2] = "start";
   program.parse(process.argv);
