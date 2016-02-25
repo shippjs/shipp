@@ -81,10 +81,25 @@ module.exports = function() {
 };
 
 
+
+/**
+
+  Starts the server
+
+**/
+
 function start() {
 
+  var server = require("../server/");
+
+  // Start the server
   console.log(chalk.green.bold("\nStarting server...\n"));
-  require("../server/")();
+  server({
+    liveRefresh: true
+  });
+
+  // Start browser sync and proxy
+  global.server.init({ proxy : "localhost:" + global.ports.proxy });
 
 }
 
