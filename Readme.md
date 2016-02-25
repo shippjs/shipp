@@ -51,8 +51,8 @@ settings using the CLI. For example, `$ sneakers pipelines:add html dust`
   ```
   views/
   └─ about/
-  `   ├─ legal.jade
-  `   └─ privacy.jade
+  `  ├─ legal.jade
+  `  └─ privacy.jade
   ```
   compiles jade into html for routes `/about/legal` and `/about/privacy`.
 
@@ -60,9 +60,9 @@ settings using the CLI. For example, `$ sneakers pipelines:add html dust`
   ```
   scripts/
   └─ app/
-  `   ├─ index.js
-  `   ├─ helper.js
-  `   └─ utils.js
+  `  ├─ index.js
+  `  ├─ helper.js
+  `  └─ utils.js
   ```
   turns into `/scripts/app.js`.
 
@@ -70,7 +70,7 @@ settings using the CLI. For example, `$ sneakers pipelines:add html dust`
   ```
   views/
   └─ posts/
-  `   └─ template.html
+  `  └─ template.html
   ```
   turns into `/posts/:query`, where query is passed into your templating engine.
   Note that this also applies to HTML-like files.
@@ -82,7 +82,7 @@ settings using the CLI. For example, `$ sneakers pipelines:add html dust`
   data/
   ├─ music.json         # Contains { "artists" : [...], "albums" : [...] }
   └─ api/
-        └─ users.json   # Contains [user1, user2, user3]
+     └─ users.json   # Contains [user1, user2, user3]
   ```
   Yields the routes: `/artists`, `/albums`, and `/api/users`. Note that since
   `music.json` contained an object, its keys give the route. Meanwhile, since
