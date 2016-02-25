@@ -1,9 +1,14 @@
 
-/*
+/**
 
   cli.js
 
-*/
+**/
+
+
+//
+//  Dependencies
+//
 
 var program   = require("commander"),
     chalk     = require("chalk"),
@@ -13,6 +18,11 @@ var program   = require("commander"),
     routes    = require("./routes-editor"),
     utils     = require("./cli-utils");
 
+
+
+//
+//  Exports
+//
 
 module.exports = function() {
 
@@ -125,7 +135,16 @@ function start() {
 
 }
 
+
+/**
+
+  Shows help on commands
+
+**/
+
 function showHelp() {
+
+  var columns = [];
 
   console.log("");
   console.log("To start the server, run", chalk.magenta("sneakers start"));
@@ -142,11 +161,22 @@ function showHelp() {
 }
 
 
+/**
+
+  Helper to read in a file from the help directory
+
+**/
 
 function readHelpFile(filename) {
   return JSON.parse(utils.readFile(require("path").join(__dirname, "help", filename), "utf8"));
 }
 
+
+/**
+
+  Helper to list a command, properly spaced
+
+**/
 
 function listCommand(command, description) {
 
@@ -161,4 +191,5 @@ function listCommand(command, description) {
   // Replace <commands> with yellow
   key = key.replace(/\"?\<[^\>]+\>\"?/g, function(x) { return chalk.yellow(x) });;
   console.log("    " + key + "  " + command.description);
+
 }
