@@ -54,7 +54,9 @@ utils.pad = function(str, len) {
 
 utils.showGrid = function(grid, options) {
 
-  options = options || {};
+  var str;
+
+  options = options || {},
 
   grid.sort(function(a, b) {
     return (a[0] < b[0]) ? -1 : (a[0] > b[0]) ? 1 : 0;
@@ -67,11 +69,19 @@ utils.showGrid = function(grid, options) {
     console.log("");
   }
 
-  if (options.headers)
-    console.log(chalk.yellow("    " + utils.pad(options.headers[0], options.len) + options.headers[1]));
+  if (options.headers) {
+    str = "    ";
+    for (var j = 0, m = options.headers.length; j < m; j++)
+      str += utils.pad(options.headers[j], options.len);
+    console.log(chalk.yellow(str));
+  }
 
-  for (var i = 0, n = grid.length; i < n; i++)
-    console.log("    " + utils.pad(grid[i][0], options.len) + grid[i][1]);
+  for (var i = 0, n = grid.length; i < n; i++) {
+    str = "    ";
+    for (var j = 0, m = grid[i].length; j < m; j++)
+      str += utils.pad(grid[i][j], options.len);
+    console.log(str);
+  }
 
   console.log("");
 
