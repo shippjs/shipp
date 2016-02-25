@@ -97,7 +97,7 @@ module.exports = function() {
     .action(routes.remove);
 
   // Set start as default argument
-  if ("undefined" == typeof process.argv[2]) process.argv[2] = "start";
+  if ("undefined" == typeof process.argv[2]) process.argv[2] = "help";
   program.parse(process.argv);
 
 };
