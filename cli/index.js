@@ -143,12 +143,12 @@ function showHelp() {
 
 
 
-readHelpFile = function(filename) {
+function readHelpFile(filename) {
   return JSON.parse(utils.readFile(require("path").join(__dirname, "help", filename), "utf8"));
 }
 
 
-listCommand = function(command, description) {
+function listCommand(command, description) {
 
   var key = command.command;
 
