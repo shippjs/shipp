@@ -143,8 +143,8 @@ function showHelp() {
 
 
 
-readHelpFile = function(p) {
-  return JSON.parse(utils.readFile(require("path").join(__dirname, "help", "main.json"), "utf8"));
+readHelpFile = function(filename) {
+  return JSON.parse(utils.readFile(require("path").join(__dirname, "help", filename), "utf8"));
 }
 
 
