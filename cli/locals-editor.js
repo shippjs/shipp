@@ -53,7 +53,6 @@ module.exports = {
     Adds a local variable and acknolwedges with confirmation.
 
     @param {String} key The key to lookup (supports dot-notation)
-    @returns {*} The value of the key
 
   **/
 
@@ -82,7 +81,7 @@ module.exports = {
 
   /**
 
-    Removes a local variable and acknolwedges with confirmation.
+    Removes a local variable and acknowledges with confirmation.
 
     @param {String} key The key to remove (supports dot-notation)
 
