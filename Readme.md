@@ -48,56 +48,56 @@ For example, `.coffee` files will be automatically transpiled by CoffeeScript,
 settings using the CLI. For example, `$ sneakers pipelines:add html dust`
 
 2. **Route handlers are inferred from directory structure**. For example,
-```
-views/
-└─ about/
-`   ├─ legal.jade
-`   └─ privacy.jade
-```
-turns into `/about/legal` and `/about/privacy`.
+  ```
+  views/
+  └─ about/
+  `   ├─ legal.jade
+  `   └─ privacy.jade
+  ```
+  turns into `/about/legal` and `/about/privacy`.
 
 3. **Scripts named index.* will compile via webpack**.
-```
-scripts/
-└─ app/
-`   ├─ index.js
-`   ├─ helper.js
-`   └─ utils.js
-```
-turns into `/scripts/app.js`.
+  ```
+  scripts/
+  └─ app/
+  `   ├─ index.js
+  `   ├─ helper.js
+  `   └─ utils.js
+  ```
+  turns into `/scripts/app.js`.
 
 4. **HTML files named `template` turn into wildcard routes**.
-```
-views/
-└─ posts/
-`   └─ template.html
-```
-turns into `/posts/:query`, where query is passed into your templating engine.
-Note that this also applies to HTML-like files.
+  ```
+  views/
+  └─ posts/
+  `   └─ template.html
+  ```
+  turns into `/posts/:query`, where query is passed into your templating engine.
+  Note that this also applies to HTML-like files.
 
 5. **JSON in your `data` directory will be swallowed into your server**.
-If the JSON file is an array, it can be queried using the filename and path.
-If it an object, the keys function as paths (including folder). Let's see an example:
-```bash
-data/
-├─ music.json         # Contains { "artists" : [...], "albums" : [...] }
-└─ api/
-      └─ users.json   # Contains [user1, user2, user3]
-```
-Yields the routes: `/artists`, `/albums`, and `/api/users`. Note that since
-`music.json` contained an object, its keys give the route. Meanwhile, since
-`users.json` contained an array, the route is determined from the filename. In
-both cases, the parent directory is used as a prefix.
+  If the JSON file is an array, it can be queried using the filename and path.
+  If it an object, the keys function as paths (including folder). Let's see an example:
+  ```bash
+  data/
+  ├─ music.json         # Contains { "artists" : [...], "albums" : [...] }
+  └─ api/
+        └─ users.json   # Contains [user1, user2, user3]
+  ```
+  Yields the routes: `/artists`, `/albums`, and `/api/users`. Note that since
+  `music.json` contained an object, its keys give the route. Meanwhile, since
+  `users.json` contained an array, the route is determined from the filename. In
+  both cases, the parent directory is used as a prefix.
 
 6. **HTML files can have QUERY metadata using Universql**
-```html
-<html>
-<!-- QUERY=api/albums?id={{query}} -->
-<head>
-...
-</html>
-```
-This is a fairly advanced topic and needs to be covered in more detail.
+  ```html
+  <html>
+  <!-- QUERY=api/albums?id={{query}} -->
+  <head>
+  ...
+  </html>
+  ```
+  This is a fairly advanced topic and needs to be covered in more detail.
 
 ## Recommended Directory Structure
 
