@@ -26,6 +26,21 @@ var program   = require("commander"),
 
 module.exports = function() {
 
+  var command = process.argv[2];
+
+  // Set start as default argument
+  if ("undefined" == typeof process.argv[2]) process.argv[2] = "help";
+
+  // Throw error with pipelines if missing quotes
+  if ("pipelines:add" === process.argv[2] && !(/^('.+'|".+")$/.test(process.argv[4]))) {
+
+    // Chalk colors are ignored in console.error. We must use chalk.styles
+    var msg = chalk.styles.red.open + "\n   Error! " + chalk.styles.red.close;
+    console.error(msg + "Pipelines must be surrounded by quotes to prevent the > operator from creating a file.")
+    console.error("          You may want to ensure that no additional file was created.\n");
+    return;
+  }
+
   program
     .version("0.7.0")
 
@@ -106,8 +121,6 @@ module.exports = function() {
     .command("routes:remove <route>")
     .action(routes.remove);
 
-  // Set start as default argument
-  if ("undefined" == typeof process.argv[2]) process.argv[2] = "help";
   program.parse(process.argv);
 
 };
