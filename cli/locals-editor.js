@@ -34,10 +34,12 @@ module.exports = {
         str;
 
     console.log("");
+    console.log(chalk.cyan(" Locals:"));
+    console.log("");
+
     if (!Object.keys(locals).length)
-      console.log(chalk.cyan("   Info:"), "there are no local variables in your project");
+      console.log("   There are no local variables in your project");
     else {
-      console.log(chalk.cyan("   Local Variables:\n"));
       str = JSON.stringify(locals, null, 2).split("\n").map(function(line) { return "   " + line; }).join("\n");
       console.log(str);
     }
