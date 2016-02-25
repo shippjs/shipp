@@ -9,7 +9,7 @@ it unnecessary.
 For example, adding a Jade-Handlebars-HTML Minifier pipeline requires no grunts
 and no gulps. Assuming we denote these with "jbs" extension, simply type:
 
-`$ sneakers pipelines:add *.jbs jade>handlebars>html-minifier`
+`$ sneakers pipelines:add *.jbs "jade>handlebars>html-minifier"`
 
 The end goal is to fully automate front-end pipelines from development to
 Dockerized microservice deployment with minimal configuration. We're not there
