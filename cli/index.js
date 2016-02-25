@@ -128,6 +128,8 @@ function start() {
 function showHelp() {
 
   console.log("");
+  console.log("To start the server, run", chalk.magenta("sneakers start"));
+  console.log("");
   console.log(chalk.cyan(" Usage:"));
   console.log("");
   console.log("    " + chalk.magenta("sneakers") + chalk.yellow(" <command> [<args>]"));
