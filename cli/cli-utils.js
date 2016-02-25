@@ -56,11 +56,13 @@ utils.showGrid = function(grid, options) {
 
   var str;
 
-  options = options || {},
+  options = options || {};
+  if ("undefined" === typeof options.sort) options.sort = true;
 
-  grid.sort(function(a, b) {
-    return (a[0] < b[0]) ? -1 : (a[0] > b[0]) ? 1 : 0;
-  });
+  if (options.sort)
+    grid.sort(function(a, b) {
+      return (a[0] < b[0]) ? -1 : (a[0] > b[0]) ? 1 : 0;
+    });
 
   console.log("");
 

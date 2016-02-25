@@ -10,13 +10,14 @@
 //  Dependencies
 //
 
-var program   = require("commander"),
-    chalk     = require("chalk"),
-    data      = require("./data-editor"),
-    locals    = require("./locals-editor"),
-    pipelines = require("./pipelines-editor"),
-    routes    = require("./routes-editor"),
-    utils     = require("./cli-utils");
+var program    = require("commander"),
+    chalk      = require("chalk"),
+    data       = require("./data-editor"),
+    locals     = require("./locals-editor"),
+    middleware = require("./middleware-editor"),
+    pipelines  = require("./pipelines-editor"),
+    routes     = require("./routes-editor"),
+    utils      = require("./cli-utils");
 
 
 
@@ -57,6 +58,7 @@ module.exports = function() {
     .action(function() {
       data.list();
       locals.list();
+      middleware.list();
       pipelines.list();
       routes.list();
     });
@@ -84,6 +86,18 @@ module.exports = function() {
   program
     .command("locals:remove <key>")
     .action(locals.remove);
+
+  program
+    .command("middleware")
+    .action(middleware.list);
+
+  program
+    .command("middleware:add <position> <package>")
+    .action(middleware.add);
+
+  program
+    .command("middleware:remove <position> <package>")
+    .action(middleware.remove);
 
   program
     .command("pipelines")

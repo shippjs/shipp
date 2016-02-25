@@ -45,6 +45,21 @@
     "command": ""
   },
   {
+    "command": "middleware",
+    "description": "lists local template variables"
+  },
+  {
+    "command": "middleware:add <position> <package>",
+    "description": "adds middleware (positions: beforeAll, beforeRoutes, afterRoutes, afterAll)"
+  },
+  {
+    "command": "middleware:remove <position> <package>",
+    "description": "removes middleware"
+  },
+  {
+    "command": ""
+  },
+  {
     "command": "pipelines",
     "description": "adds a compilation pipeline"
   },
