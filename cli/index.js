@@ -30,12 +30,10 @@ module.exports = function() {
   program
     .command("config")
     .action(function() {
-      listPipelines()
-      listFolders("data");
-      listFolders("scripts");
-      listFolders("statics");
-      listFolders("styles");
-      listFolders("views");
+      data.list();
+      locals.list();
+      pipelines.list();
+      routes.list();
     });
 
   program
