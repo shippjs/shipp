@@ -65,7 +65,7 @@
   },
   {
     "command": "routes:scripts <route> <folder>",
-    "description": "adds a folder contain scripts"
+    "description": "adds a folder containing scripts"
   },
   {
     "command": "routes:statics <route> <folder>",
@@ -73,15 +73,15 @@
   },
   {
     "command": "routes:styles <route> <folder>",
-    "description": "adds a folder containg stylesheets"
+    "description": "adds a folder containing stylesheets"
   },
   {
     "command": "routes:views <route> <folder>",
-    "description": "adds a folder containins views"
+    "description": "adds a folder containing views"
   },
   {
     "command": "routes:remove <route>",
-    "description": "removes a script folder"
+    "description": "removes a route"
   },
   {
     "command": ""
