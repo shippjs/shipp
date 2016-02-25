@@ -121,7 +121,7 @@ function start() {
   });
 
   // Start browser sync and proxy
-  global.server.init({ proxy : "localhost:" + global.ports.proxy });
+  global.server.init({ proxy : "localhost:" + global.ports.server });
 
 }
 
