@@ -26,7 +26,7 @@ How do we do this with zero configuration? See below!
 * Automatic compilation of stylesheet languages (Less, Sass, Stylus)  
 * Automatic bundling of single page apps via [webpack](https://github.com/webpack/webpack)
 * No excess waste: compiled files are stored in-memory, leaving your file system pristine
-* Support for advanced chaining of engines (CoffeeScript > Babel > UglifyJS)  
+* Support for advanced chaining of pipelines (CoffeeScript > Babel > UglifyJS)  
 * JSON REST API via [json-server](https://github.com/typicode/json-server)  
 * Cookie, session and environment variables  
 * Database querying via [Universql](https://github.com/brandoncarl/universql)  
@@ -42,10 +42,10 @@ $ npm install -g sneakers
 
 By using a core set of rules, we are able to use zero configuration.  
 
-1. **Compilation engines are inferred from, and attached to file extensions.**
+1. **Compilation pipelines are inferred from, and attached to file extensions.**
 For example, `.coffee` files will be automatically transpiled by CoffeeScript,
 `.ts` by TypeScript, `.hbs` by Handlebars, and so on. You can override these
-settings using the CLI. For example, `$ sneakers add:engine html=dust`
+settings using the CLI. For example, `$ sneakers pipelines:add html dust`
 
 2. **Route handlers are inferred from directory structure**. For example,
 ```
