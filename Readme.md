@@ -30,6 +30,7 @@ How do we do this with zero configuration? See below!
 * JSON REST API via [json-server](https://github.com/typicode/json-server)  
 * Cookie, session and environment variables  
 * Database querying via [Universql](https://github.com/brandoncarl/universql)  
+* Custom middleware built on [express](https://github.com/expressjs/express)
 
 
 ## Installation
