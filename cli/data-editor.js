@@ -120,14 +120,15 @@ var dataEditor = module.exports = {
   remove: function(folder) {
 
     var editor = require("./config-editor"),
-        data   = (editor.get("data") || []).slice(0);
+        data   = (editor.get("data") || []).slice(0),
+        idx    = dataEditor.find(folder);
 
     console.log("");
 
-    if (data.indexOf(folder) === -1) {
+    if (idx === -1) {
       console.log("   " + chalk.red("No Change:") + " your data directories didn't include " + chalk.yellow(folder));
     } else {
-      data.splice(data.indexOf(folder))
+      data.splice(idx);
       editor.set("data", data);
       editor.save();
       console.log("   " + chalk.cyan("Removed:") + " sneakers no longer includes " + chalk.yellow(folder) + " in your data directory");
