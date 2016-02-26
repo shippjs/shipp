@@ -230,10 +230,11 @@ Utils.makeRoutes = function(baseRoute, file, options) {
   route = (url.resolve((baseRoute + "/").replace(re, "/"), file.folder) + "/").replace(re, "/");
 
   // HTML-like files named "template" pull their route from the parent directory
-  // and pass the subsequent URL on as a "query" parameter
-  if (/^html?$/.test(ext) && ("template" === file.name)) {
+  // and pass the subsequent URL on as a "query" parameter. Note that $ are not
+  // allowed in params.
+  if (Utils.isTemplate(file, ext)) {
     route = route.split("/").slice(0, -1).join("/");
-    return [route + "/:query"];
+    return [route + "/" + (options.params || ":slug").replace(/^\//, "")];
   }
 
   // Add file and default extension
@@ -433,4 +434,34 @@ Utils.sequence = function(tasks, initial) {
   return Promise.reduce(tasks || [], function(val, task) {
     return task(val);
   }, initial);
+};
+
+
+
+/**
+
+  Tests whether a file is a template (HTML-like and named properly)
+
+  @param {Stats} file File as returned by fs.lstat
+  @param {String} type The type of file extension
+  @returns {Boolean} Returns true is is a template
+
+**/
+
+Utils.isTemplate = function(file, type) {
+  return ("template" === file.name) && Utils.isHTML(type);
+};
+
+
+/**
+
+  Tests whether a type is HTML-like
+
+  @param {String} type Type of file
+  @returns {Boolean} Returns true if is HTML-like
+
+**/
+
+Utils.isHTML = function(type) {
+  return /^\*?\.?html?$/i.test(type);
 };

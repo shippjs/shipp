@@ -73,7 +73,7 @@ settings using the CLI. For example, `$ sneakers pipelines:add html dust`
   └─ posts/
   `  └─ template.html
   ```
-  turns into `/posts/:query`, where query is passed into your templating engine.
+  turns into `/posts/:$slug`, where query is passed into your templating engine.
   Note that this also applies to HTML-like files.
 
 5. **JSON in your `data` directory will be swallowed into your server**.
@@ -90,10 +90,10 @@ settings using the CLI. For example, `$ sneakers pipelines:add html dust`
   `users.json` contained an array, the route is determined from the filename. In
   both cases, the parent directory is used as a prefix.
 
-6. **HTML files can have QUERY metadata using Universql**
+6. **HTML files can have DATA metadata using Universql**
   ```html
   <html>
-  <!-- QUERY=api/albums?id={{query}} -->
+  <!-- DATA=api/albums?id={{$slug}} -->
   <head>
   ...
   </html>
@@ -120,6 +120,13 @@ project/
 ```
 Note that `scripts` contain your own JavaScript and `vendor` contains third-party.
 Third-party JavaScript is assumed to be precompiled and is handled as static files.
+
+## Special Variables
+
+The following variables are attached to the templating context and should be
+treated as reserved: `$QUERY`, `$PARAMS`, `$DATA`, `$SLUG`, `$COOKIES`, `$SESSION`.
+They correspond to the related `req` variables in express. `$slug` is used
+only for templates and contains the wildcard portion of the URL.
 
 
 ## CLI

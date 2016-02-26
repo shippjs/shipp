@@ -7,13 +7,13 @@
   Examples:
 
   Find status and store key/values are copied into templating data:
-  QUERY=/api/status
+  DATA=/api/status
 
   Find albums and store results as `albums` key of templating data:
-  QUERY=albums:"/api/albums"
+  DATA=albums:"/api/albums"
 
-  Find single album using query
-  QUERY="/api/albums?id={{query}}"[0]
+  Find single album using $slug
+  DATA="/api/albums?id={{$slug}}"[0]
 
 **/
 
@@ -41,17 +41,18 @@ var Metadata = module.exports = {};
 
 Metadata.extract = function(str) {
 
-  var names = ["QUERY", "COOKIES", "SESSION"],
+  var names = ["DATA", "PARAMS", "COOKIES", "SESSION"],
       re    = new RegExp("(\\b(?:" + names.join("|") + ")\\=[^\\n\\r]+)", "g"),
       meta  = {};
 
   Utils.getRegExpMatches(str, re, 1).map(Metadata.parse).forEach(function(metadata) {
 
-    // Ensure exists...
-    meta[metadata.name] = meta[metadata.name] || [];
-
-    // Add value
-    meta[metadata.name].push(metadata.value);
+    if ("data" === metadata.name) {
+      meta[metadata.name] = meta[metadata.name] || [];
+      meta[metadata.name].push(metadata.value);
+    } else {
+      meta[metadata.name] = metadata.value;
+    }
 
   });
 
@@ -80,10 +81,13 @@ Metadata.parse = function(str) {
   // Handle different types of metadata differently
   switch (name) {
     case "cookies":
-      value = JSON.parse("{" + matches[1] + "}");
+      value = JSON.parse("{" + matches[0] + "}");
       break;
     case "session":
-      value = JSON.parse("{" + matches[1] + "}");
+      value = JSON.parse("{" + matches[0] + "}");
+      break;
+    case "params":
+      value = matches[0];
       break;
     default:
       value = Metadata.parseQuery(matches.join("="));
@@ -114,7 +118,7 @@ Metadata.parseQuery = function(str) {
 
   if (!str || !str.length) throw new Error("No query string provided");
 
-  // Allow assignment to key: QUERY=key:"query..." or QUERY=key:'query...'
+  // Allow assignment to key: DATA=key:"query..." or DATA=key:'query...'
   // Final portion allows for index selection
   if (/^[a-zA-Z_$][0-9a-zA-Z_$]*:".+"(\[(\d+)\])?$/.test(str) || /^[a-zA-Z_$][0-9a-zA-Z_$]*:'.+'(\[(\d+)\])?$/.test(str)) {
     str = str.split(":");
