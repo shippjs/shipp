@@ -18,7 +18,7 @@ var chalk = require("chalk");
 //  Exports
 //
 
-module.exports = {
+var dataEditor = module.exports = {
 
   /**
 
@@ -51,6 +51,31 @@ module.exports = {
 
   },
 
+
+  /**
+
+    Finds a data folder and returns position (similar to indexOf)
+
+    @param {String} folder The name of the folder to find
+    @returns {Number} The position (-1 if missing)
+
+  **/
+
+  find: function(folder) {
+
+    var editor = require("./config-editor"),
+        data   = (editor.get("data") || []).slice(0);
+
+    for (var i = 0, n = data.length; i < n; i++)
+      if ("string" === typeof data[i]) {
+        if (folder === data[i]) return i;
+      } else {
+        if (folder === data[i].path) return i;
+      }
+
+    return -1;
+
+  },
 
 
   /**
