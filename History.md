@@ -1,3 +1,8 @@
+### v0.8.3
+*February 26, 2016*
+* Incorporates special variables (e.g. $query)
+* Hints all files
+* Lazily-loads defaults only as needed
 
 ### v0.8.2
 *February 25, 2016*
