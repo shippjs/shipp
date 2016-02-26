@@ -18,7 +18,7 @@ var chalk = require("chalk");
 //  Exports
 //
 
-module.exports = {
+var dataEditor = module.exports = {
 
   /**
 
@@ -52,26 +52,53 @@ module.exports = {
   },
 
 
+  /**
+
+    Finds a data folder and returns position (similar to indexOf)
+
+    @param {String} folder The name of the folder to find
+    @returns {Number} The position (-1 if missing)
+
+  **/
+
+  find: function(folder) {
+
+    var editor = require("./config-editor"),
+        data   = (editor.get("data") || []).slice(0);
+
+    for (var i = 0, n = data.length; i < n; i++)
+      if ("string" === typeof data[i]) {
+        if (folder === data[i]) return i;
+      } else {
+        if (folder === data[i].path) return i;
+      }
+
+    return -1;
+
+  },
+
 
   /**
 
     Adds a data folder and acknolwedges with confirmation.
 
     @param {String} folder The location of the data directory
+    @param {String} [route] Optional base route (defaults to "/")
 
   **/
 
-  add: function(folder) {
+  add: function(folder, route) {
 
     var editor = require("./config-editor"),
-        data   = (editor.get("data") || []).slice(0);
+        data   = (editor.get("data") || []).slice(0),
+        idx    = dataEditor.find(folder);
 
     console.log("");
 
-    if (data.indexOf(folder) > -1) {
+    if (idx > -1)
       console.log("   " + chalk.red("No Change:") + " your data directories already include " + chalk.yellow(folder));
-    } else {
-      data.push(folder);
+    else {
+      data.push(route ? { path : folder, url : route } : folder);
       editor.set("data", data);
       editor.save();
       console.log("   " + chalk.cyan("Added:") + " sneakers now includes " + chalk.yellow(folder) + " in your data directory");
@@ -93,14 +120,15 @@ module.exports = {
   remove: function(folder) {
 
     var editor = require("./config-editor"),
-        data   = (editor.get("data") || []).slice(0);
+        data   = (editor.get("data") || []).slice(0),
+        idx    = dataEditor.find(folder);
 
     console.log("");
 
-    if (data.indexOf(folder) === -1) {
+    if (idx === -1) {
       console.log("   " + chalk.red("No Change:") + " your data directories didn't include " + chalk.yellow(folder));
     } else {
-      data.splice(data.indexOf(folder))
+      data.splice(idx);
       editor.set("data", data);
       editor.save();
       console.log("   " + chalk.cyan("Removed:") + " sneakers no longer includes " + chalk.yellow(folder) + " in your data directory");
