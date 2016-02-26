@@ -1,7 +1,6 @@
-
 /**
 
-  cli-utils
+  cli-utils.js
 
   Helper functions for cli interface.
 
@@ -37,7 +36,7 @@ var utils = module.exports = {};
 utils.pad = function(str, len) {
   while (str.length < len) str += " ";
   return str;
-}
+};
 
 
 
@@ -54,7 +53,7 @@ utils.pad = function(str, len) {
 
 utils.showGrid = function(grid, options) {
 
-  var str;
+  var str, i, j, m, n;
 
   options = options || {};
   if ("undefined" === typeof options.sort) options.sort = true;
@@ -73,14 +72,14 @@ utils.showGrid = function(grid, options) {
 
   if (options.headers) {
     str = "    ";
-    for (var j = 0, m = options.headers.length; j < m; j++)
+    for (j = 0, m = options.headers.length; j < m; j++)
       str += utils.pad(options.headers[j], options.len);
     console.log(chalk.yellow(str));
   }
 
-  for (var i = 0, n = grid.length; i < n; i++) {
+  for (i = 0, n = grid.length; i < n; i++) {
     str = "    ";
-    for (var j = 0, m = grid[i].length; j < m; j++)
+    for (j = 0, m = grid[i].length; j < m; j++)
       str += utils.pad(grid[i][j], options.len);
     console.log(str);
   }
@@ -101,4 +100,4 @@ utils.showGrid = function(grid, options) {
 
 utils.readFile = function(p) {
   return require("fs").readFileSync(p, "utf8");
-}
+};

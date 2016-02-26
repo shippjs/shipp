@@ -1,7 +1,6 @@
-
 /**
 
-  data-editor
+  data-editor.js
 
 **/
 
