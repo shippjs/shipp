@@ -1,4 +1,10 @@
 
+### v0.8.2
+*February 25, 2016*
+* Switches superloader to Pipemaker version
+* Allows for base routes in data
+* Fixes BrowserSync full-reload issues
+
 ### v0.8.1
 *February 25, 2016*
 * Ensures CLI pipelines are properly formatted
