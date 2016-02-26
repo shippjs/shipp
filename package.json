@@ -29,7 +29,7 @@
     "memory-fs": "^0.3.0",
     "morgan": "^1.7.0",
     "st": "^1.1.0",
-    "superloader": "^0.2.1",
+    "superloader": "^0.3.0",
     "universql": "^0.1.0",
     "universql-json": "^0.1.2",
     "webpack": "^1.12.12"
