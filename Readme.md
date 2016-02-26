@@ -73,7 +73,7 @@ settings using the CLI. For example, `$ sneakers pipelines:add html dust`
   └─ posts/
   `  └─ template.html
   ```
-  turns into `/posts/:query`, where query is passed into your templating engine.
+  turns into `/posts/:$slug`, where query is passed into your templating engine.
   Note that this also applies to HTML-like files.
 
 5. **JSON in your `data` directory will be swallowed into your server**.
@@ -93,7 +93,7 @@ settings using the CLI. For example, `$ sneakers pipelines:add html dust`
 6. **HTML files can have DATA metadata using Universql**
   ```html
   <html>
-  <!-- QUERY=api/albums?id={{query}} -->
+  <!-- DATA=api/albums?id={{$slug}} -->
   <head>
   ...
   </html>
