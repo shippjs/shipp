@@ -68,7 +68,7 @@ module.exports = function() {
     .action(data.list);
 
   program
-    .command("data:add <folder>")
+    .command("data:add <folder> [route]")
     .action(data.add);
 
   program

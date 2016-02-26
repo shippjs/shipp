@@ -19,7 +19,7 @@
     "description": "lists data directories"
   },
   {
-    "command": "data:add <folder>",
+    "command": "data:add <folder> [route]",
     "description": "adds a data folder"
   },
   {
