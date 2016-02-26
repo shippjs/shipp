@@ -90,7 +90,7 @@ settings using the CLI. For example, `$ sneakers pipelines:add html dust`
   `users.json` contained an array, the route is determined from the filename. In
   both cases, the parent directory is used as a prefix.
 
-6. **HTML files can have QUERY metadata using Universql**
+6. **HTML files can have DATA metadata using Universql**
   ```html
   <html>
   <!-- QUERY=api/albums?id={{query}} -->
