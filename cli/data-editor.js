@@ -83,20 +83,22 @@ var dataEditor = module.exports = {
     Adds a data folder and acknolwedges with confirmation.
 
     @param {String} folder The location of the data directory
+    @param {String} [route] Optional base route (defaults to "/")
 
   **/
 
-  add: function(folder) {
+  add: function(folder, route) {
 
     var editor = require("./config-editor"),
-        data   = (editor.get("data") || []).slice(0);
+        data   = (editor.get("data") || []).slice(0),
+        idx    = dataEditor.find(folder);
 
     console.log("");
 
-    if (data.indexOf(folder) > -1) {
+    if (idx > -1)
       console.log("   " + chalk.red("No Change:") + " your data directories already include " + chalk.yellow(folder));
-    } else {
-      data.push(folder);
+    else {
+      data.push(route ? { path : folder, url : route } : folder);
       editor.set("data", data);
       editor.save();
       console.log("   " + chalk.cyan("Added:") + " sneakers now includes " + chalk.yellow(folder) + " in your data directory");
