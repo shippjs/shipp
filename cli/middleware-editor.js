@@ -1,7 +1,6 @@
-
 /**
 
-  middleware-editor
+  middleware-editor.js
 
 **/
 

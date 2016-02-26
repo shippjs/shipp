@@ -1,7 +1,6 @@
-
 /**
 
-  routes-editor
+  routes-editor.js
 
 **/
 
@@ -75,7 +74,7 @@ var Routes = module.exports = {
 
     function suffix(x, y) {
       return "route " + chalk.yellow(x) + " requests to the " + chalk.yellow(y) + " folder";
-    };
+    }
 
     console.log("");
 

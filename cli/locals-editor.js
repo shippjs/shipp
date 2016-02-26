@@ -1,7 +1,6 @@
-
 /**
 
-  locals-editor
+  locals-editor.js
 
 **/
 

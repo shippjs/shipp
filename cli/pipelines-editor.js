@@ -1,7 +1,6 @@
-
 /**
 
-  pipelines-editor
+  pipelines-editor.js
 
 **/
 
@@ -40,7 +39,7 @@ module.exports = {
 
     // Add to columns
     for (var key in pipelines)
-      columns.push(["*." + key, pipelines[key]])
+      columns.push(["*." + key, pipelines[key]]);
 
     utils.showGrid(columns, {
       title   : "Pipelines:",
@@ -63,14 +62,15 @@ module.exports = {
 
   add: function(ext, pipeline) {
 
-    var editor = require("./config-editor");
-        ext    = ext.replace(/^[\*\.]*/, ""),
+    ext = ext.replace(/^[\*\.]*/, "");
+
+    var editor = require("./config-editor"),
         key    = "pipelines." + ext,
         prev   = editor.get(key);
 
     function suffix(val) {
       return chalk.yellow("*." + ext) + " files with " + chalk.yellow(val);
-    };
+    }
 
     console.log("");
 
@@ -98,8 +98,9 @@ module.exports = {
 
   remove: function(ext) {
 
-    var editor = require("./config-editor");
-        ext    = ext.replace(/^[\*\.]*/, ""),
+    ext = ext.replace(/^[\*\.]*/, "");
+
+    var editor = require("./config-editor"),
         key    = "pipelines." + ext,
         prev   = editor.get(key);
 

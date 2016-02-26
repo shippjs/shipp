@@ -1,7 +1,6 @@
-
 /**
 
-  cli.js
+  cli
 
 **/
 
@@ -37,13 +36,13 @@ module.exports = function() {
 
     // Chalk colors are ignored in console.error. We must use chalk.styles
     var msg = chalk.styles.red.open + "\n   Error! " + chalk.styles.red.close;
-    console.error(msg + "Pipelines must be surrounded by quotes to prevent the > operator from creating a file.")
+    console.error(msg + "Pipelines must be surrounded by quotes to prevent the > operator from creating a file.");
     console.error("          You may want to ensure that no additional file was created.\n");
     return;
   }
 
   program
-    .version("0.7.0")
+    .version("0.7.0");
 
   program
     .command("start")
@@ -216,7 +215,7 @@ function listCommand(command, description) {
   key = utils.pad(key, 39);
 
   // Replace <commands> with yellow
-  key = key.replace(/\"?\<[^\>]+\>\"?/g, function(x) { return chalk.yellow(x) });;
+  key = key.replace(/\"?<[^>]+>\"?/g, function(x) { return chalk.yellow(x); });
   console.log("    " + key + "  " + command.description);
 
 }
