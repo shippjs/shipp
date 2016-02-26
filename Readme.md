@@ -121,6 +121,13 @@ project/
 Note that `scripts` contain your own JavaScript and `vendor` contains third-party.
 Third-party JavaScript is assumed to be precompiled and is handled as static files.
 
+## Special Variables
+
+The following variables are attached to the templating context and should be
+treated as reserved: `$QUERY`, `$PARAMS`, `$DATA`, `$SLUG`, `$COOKIES`, `$SESSION`.
+They correspond to the related `req` variables in express. `$slug` is used
+only for templates and contains the wildcard portion of the URL.
+
 
 ## CLI
 
