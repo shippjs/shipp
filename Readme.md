@@ -124,7 +124,7 @@ Third-party JavaScript is assumed to be precompiled and is handled as static fil
 ## Special Variables
 
 The following variables are attached to the templating context and should be
-treated as reserved: `$QUERY`, `$PARAMS`, `$DATA`, `$SLUG`, `$COOKIES`, `$SESSION`.
+treated as reserved: `$query`, `$params`, `$data`, `$slug`, `$cookies`, `$session`.
 They correspond to the related `req` variables in express. `$slug` is used
 only for templates and contains the wildcard portion of the URL.
 
