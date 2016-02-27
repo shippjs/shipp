@@ -50,7 +50,7 @@
   },
   {
     "command": "middleware:add <position> <package>",
-    "description": "adds middleware (positions: beforeAll, beforeRoutes, afterRoutes, afterAll)"
+    "description": "adds middleware (positions: beforeAll, beforeRoutes, afterRoutes, errorHandler)"
   },
   {
     "command": "middleware:remove <position> <package>",
