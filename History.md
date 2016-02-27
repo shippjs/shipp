@@ -1,3 +1,7 @@
+### v0.8.4
+*February 27, 2016*
+* Updates superloader to v0.3.6 (major bugs in previous version)
+
 ### v0.8.3
 *February 26, 2016*
 * Incorporates special variables (e.g. $query)
