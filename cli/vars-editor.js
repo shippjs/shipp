@@ -21,7 +21,7 @@ var chalk = require("chalk"),
 var Vars = module.exports = {
 
   addEnv: function(key, val) {
-    Vars.add("env", key, val);
+    Vars.add("env", key.toUpperCase(), val);
   },
 
   addLocal: function(key, val) {
@@ -37,7 +37,7 @@ var Vars = module.exports = {
   },
 
   removeEnv: function(key, val) {
-    Vars.remove("env", key);
+    Vars.remove("env", key.toUpperCase());
   },
 
   removeLocal: function(key, val) {
