@@ -27,7 +27,7 @@ var Vars = module.exports = {
   addLocal: function(key, val) {
 
     // Unix won't process arguments with $ in them. Provide a warning if this may have happened
-    if ("" == val) {
+    if ("" === val) {
       var msg =  "If you're trying to add a local variable linked to environment, make sure to escape it: ";
       console.log("\n" + chalk.magenta("   Warning!"), msg);
       console.log("            e.g. " + chalk.yellow("sneakers local:add siteName \"\$SITE_NAME\""));
