@@ -18,28 +18,35 @@ var chalk = require("chalk"),
 //  Exports
 //
 
-module.exports = {
+var Vars = module.exports = {
+  listLocals: function() {
+    Vars.list("locals", "Locals");
+  },
+
 
   /**
 
     Outputs a list of local variables.
 
+    @param key The key to lookup
+    @param title The title to output
+
   **/
 
-  list: function() {
+  list: function(key, title) {
 
     var editor = require("./config-editor"),
-        locals = editor.get("locals") || {},
+        vars   = editor.get(key) || {},
         str;
 
     console.log("");
-    console.log(chalk.cyan(" Locals:"));
+    console.log(chalk.cyan(" " + title + ":"));
     console.log("");
 
-    if (!Object.keys(locals).length)
-      console.log("   There are no local variables in your project");
+    if (!Object.keys(vars).length)
+      console.log("   There are no " + key + " variables in your project");
     else {
-      str = JSON.stringify(locals, null, 2).split("\n").map(function(line) { return "   " + line; }).join("\n");
+      str = JSON.stringify(vars, null, 2).split("\n").map(function(line) { return "   " + line; }).join("\n");
       console.log(str);
     }
 
