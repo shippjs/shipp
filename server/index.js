@@ -18,20 +18,25 @@ module.exports = function(options) {
       compiler   = require("./compiler"),
       middleware = require("./middleware"),
       statics    = require("./statics"),
-      PORT;
+      PORT       = global.ports.server;
 
-  PORT = global.ports.server;
+  // Helper function that handles middleware and returns error if blank
+  function use(library) {
+    if (!library || Array.isArray(library) && !library.length)
+      return new Error("No middleware added");
+    server.use(library);
+  }
 
   // Middleware injection
-  middleware(server, "beforeAll");
+  use(middleware("beforeAll"));
 
   // Set up sensible logging defaults, etc. These will change with production environments
-  server.use(require("morgan")("dev"));
-  server.use(require("cookie-parser")());
-  server.use(require("express-session")({ secret : "password123", resave : false, saveUninitialized : true }));
+  use(require("morgan")("dev"));
+  use(require("cookie-parser")());
+  use(require("express-session")({ secret : "password123", resave : false, saveUninitialized : true }));
 
   // Middleware injection
-  middleware(server, "beforeRoutes");
+  use(middleware("beforeRoutes"));
 
   // Routing middleware
   for (var route in global.config.routes) {
@@ -44,10 +49,10 @@ module.exports = function(options) {
       case "scripts":
       case "styles":
       case "views":
-        server.use(compiler(options));
+        use(compiler(options));
         break;
       case "statics":
-        server.use(statics(options));
+        use(statics(options));
         break;
       default:
         throw new Error("Unrecognized route type", options.type);
@@ -55,18 +60,13 @@ module.exports = function(options) {
   }
 
   // We must add the data last or it overwrites other paths
-  server.use(require("./data-server")());
+  use(require("./data-server")());
 
   // Middleware injection
-  middleware(server, "afterRoutes");
+  use(middleware("afterRoutes"));
 
-  // Handle 404 errors
-  server.use(function(req, res, next) {
-    res.status(404).send("404 Not Found");
-  });
-
-  // Middleware injection
-  middleware(server, "afterAll");
+  // Error handling: please see errors middleware for explanation of structure
+  require("./errors")(server, middleware("errorHandler"));
 
   // Listen (we will proxy with browser sync)
   server.listen(PORT);

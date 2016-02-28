@@ -49,7 +49,7 @@ module.exports = {
   /**
 
     Adds custom middleware to the stack. Valid positions include: beforeAll,
-    beforeRoutes, afterRoutes and afterAll
+    beforeRoutes, afterRoutes and errorHandler
 
     @param {String} position The middleware position
     @param {String} pkg The name of the package
@@ -59,7 +59,7 @@ module.exports = {
   add: function(position, pkg) {
 
     var editor = require("./config-editor"),
-        positions = ["beforeAll", "beforeRoutes", "afterRoutes", "afterAll"],
+        positions = ["beforeAll", "beforeRoutes", "afterRoutes", "errorHandler"],
         middleware = editor.get("middleware");
 
     console.log("");
@@ -85,7 +85,7 @@ module.exports = {
   /**
 
     Removes custom middleware from the stack. Valid positions include: beforeAll,
-    beforeRoutes, afterRoutes and afterAll
+    beforeRoutes, afterRoutes and errorHandler
 
     @param {String} position The middleware position
     @param {String} pkg The name of the package
@@ -95,7 +95,7 @@ module.exports = {
   remove: function(position, pkg) {
 
     var editor = require("./config-editor"),
-        positions = ["beforeAll", "beforeRoutes", "afterRoutes", "afterAll"],
+        positions = ["beforeAll", "beforeRoutes", "afterRoutes", "errorHandler"],
         middleware = editor.get("middleware");
 
     console.log("");
