@@ -1,3 +1,7 @@
+### v0.8.6
+*February 28, 2016*
+* Adds environment variables! And the ability for locals to ref environments
+
 ### v0.8.5
 *February 28, 2016*
 * CLI allows viewing/restoration of defaults
