@@ -31,6 +31,7 @@ How do we do this with zero configuration? See below!
 * Cookie, session and environment variables  
 * Database querying via [Universql](https://github.com/brandoncarl/universql)  
 * Custom middleware built on [express](https://github.com/expressjs/express)
+* Local and environment variables with advanced injection
 
 
 ## Installation
