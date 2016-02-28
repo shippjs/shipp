@@ -12,6 +12,14 @@
     "description": "shows configuration options"
   },
   {
+    "command": "defaults",
+    "description": "shows default configuration"
+  },
+  {
+    "command": "defaults:restore",
+    "description": "restores default configuration"
+  },
+  {
     "command": ""
   },
   {

@@ -53,6 +53,17 @@ var editor = module.exports = {
 
   /**
 
+    Loads defaults but does not write
+
+  **/
+
+  loadDefaults: function() {
+    editor.config = editor.defaults;
+  },
+
+
+  /**
+
     Get a key from the config file.
 
     @param {String} key The key to lookup (supports dot-notation)
@@ -100,6 +111,17 @@ var editor = module.exports = {
 
   save: function() {
     fs.writeFileSync(editor.filename, JSON.stringify(editor.load(), null, 2), "utf8");
+  },
+
+
+  /**
+
+    Removes the config file
+
+  **/
+
+  remove: function() {
+    fs.unlinkSync(editor.filename);
   }
 
 };

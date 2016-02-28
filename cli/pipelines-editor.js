@@ -28,8 +28,8 @@ module.exports = {
 
   list: function() {
 
-    var config = require("../server/config")(),
-        pipelines = Object.assign({}, config.pipelines),
+    var editor = require("./config-editor"),
+        pipelines = editor.get("pipelines"),
         columns = [];
 
     // Add in defaults for HTML, CSS and JS

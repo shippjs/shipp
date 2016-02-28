@@ -75,6 +75,14 @@ module.exports = function() {
     .action(data.remove);
 
   program
+    .command("defaults")
+    .action(listDefaults);
+
+  program
+    .command("defaults:restore")
+    .action(restoreDefaults);
+
+  program
     .command("locals")
     .action(locals.list);
 
@@ -217,5 +225,66 @@ function listCommand(command, description) {
   // Replace <commands> with yellow
   key = key.replace(/\"?<[^>]+>\"?/g, function(x) { return chalk.yellow(x); });
   console.log("    " + key + "  " + command.description);
+
+}
+
+
+
+/**
+
+  Lists defaults
+
+**/
+
+function listDefaults() {
+
+  require("./config-editor").loadDefaults();
+
+  console.log("");
+  console.log(chalk.magenta(" Note:"), "The following settings are the defaults and may or may not reflect your");
+  console.log("       app's configuration. To see your config, use the", chalk.yellow("config"), "command. To");
+  console.log("       restore defaults, use the", chalk.yellow("defaults:restore"), "command.");
+
+  data.list();
+  locals.list();
+  middleware.list();
+  pipelines.list();
+  routes.list();
+
+}
+
+
+
+/**
+
+  Deletes the sneakers.json file and restores defaults.
+
+**/
+
+function restoreDefaults() {
+
+  var str;
+
+  console.log("");
+  str  = chalk.red("   Warning!") + " This command will delete your ";
+  str += chalk.yellow("sneakers.json") + " file (using default options instead)";
+  console.log(str);
+  console.log("   To continue type DELETE and press enter.");
+
+  process.stdout.write("   > ");
+
+  process.stdout.on("data", function(res) {
+    console.log("");
+    res = res.toString().trim();
+
+    if (/^delete$/i.test(res)) {
+      console.log("   We've restored defaults by deleting your", chalk.yellow("sneakers.json"), "file");
+      require("./config-editor").remove();
+    } else
+      console.log("   Nothing done. Come back if you need us.");
+
+    console.log("");
+    process.exit();
+  });
 
 }
