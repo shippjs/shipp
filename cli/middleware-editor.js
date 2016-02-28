@@ -36,7 +36,7 @@ module.exports = {
       columns.push([key, middleware[key].join(", ")]);
 
     utils.showGrid(columns, {
-      title   : "middleware:",
+      title   : "Middleware:",
       len     : 20,
       headers : ["Position", "Packages"],
       sort    : false
