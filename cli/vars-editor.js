@@ -27,6 +27,10 @@ var Vars = module.exports = {
     Vars.list("locals", "Locals");
   },
 
+  removeLocal: function(key, val) {
+    Vars.remove("locals", key);
+  },
+
 
   /**
 
@@ -96,26 +100,27 @@ var Vars = module.exports = {
 
     Removes a local variable and acknowledges with confirmation.
 
+    @param {String} parent Which variable to change (e.g. locals, env)
     @param {String} key The key to remove (supports dot-notation)
 
   **/
 
-  remove: function(key) {
+  remove: function(parent, key) {
 
     var editor = require("./config-editor"),
-        prev = editor.get("locals." + key);
+        prev = editor.get(parent + "." + key);
 
     console.log("");
 
-    editor.unset("locals." + key);
+    editor.unset(parent + "." + key);
     editor.save();
 
     if ("undefined" === typeof prev)
-      console.log("   " + chalk.red("No Change:") + " there was no local variable called " + chalk.yellow(key));
+      console.log("   " + chalk.red("No Change:") + " there was no " + parent + " variable called " + chalk.yellow(key));
     else if ("object" === typeof prev)
-      console.log("   " + chalk.cyan("Removed:") + " local variable " + chalk.yellow(key) + " has been unset");
+      console.log("   " + chalk.cyan("Removed: ") + parent + " variable " + chalk.yellow(key) + " has been unset");
     else
-      console.log("   " + chalk.cyan("Removed:") + " local variable " + chalk.yellow(key) + " has been unset from " + chalk.yellow(prev));
+      console.log("   " + chalk.cyan("Removed: ") + parent + " variable " + chalk.yellow(key) + " has been unset from " + chalk.yellow(prev));
     console.log("");
 
   }
