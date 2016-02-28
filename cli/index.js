@@ -12,11 +12,11 @@
 var program    = require("commander"),
     chalk      = require("chalk"),
     data       = require("./data-editor"),
-    locals     = require("./locals-editor"),
     middleware = require("./middleware-editor"),
     pipelines  = require("./pipelines-editor"),
     routes     = require("./routes-editor"),
-    utils      = require("./cli-utils");
+    utils      = require("./cli-utils"),
+    vars       = require("./vars-editor");
 
 
 
@@ -56,7 +56,8 @@ module.exports = function() {
     .command("config")
     .action(function() {
       data.list();
-      locals.list();
+      vars.listEnvs();
+      vars.listLocals();
       middleware.list();
       pipelines.list();
       routes.list();
@@ -83,16 +84,28 @@ module.exports = function() {
     .action(restoreDefaults);
 
   program
+    .command("env")
+    .action(vars.listEnvs);
+
+  program
+    .command("env:add <key> <value>")
+    .action(vars.addEnv);
+
+  program
+    .command("env:remove <key>")
+    .action(vars.removeEnv);
+
+  program
     .command("locals")
-    .action(locals.list);
+    .action(vars.listLocals);
 
   program
     .command("locals:add <key> <value>")
-    .action(locals.add);
+    .action(vars.addLocal);
 
   program
     .command("locals:remove <key>")
-    .action(locals.remove);
+    .action(vars.removeLocal);
 
   program
     .command("middleware")
@@ -246,7 +259,8 @@ function listDefaults() {
   console.log("       restore defaults, use the", chalk.yellow("defaults:restore"), "command.");
 
   data.list();
-  locals.list();
+  vars.listEnvs();
+  vars.listLocals();
   middleware.list();
   pipelines.list();
   routes.list();

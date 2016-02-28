@@ -38,6 +38,21 @@
     "command": ""
   },
   {
+    "command": "env",
+    "description": "lists environment variables"
+  },
+  {
+    "command": "env:add <key> <value>",
+    "description": "adds an environment variable"
+  },
+  {
+    "command": "env:remove <key>",
+    "description": "removes an environment variable"
+  },
+  {
+    "command": ""
+  },
+  {
     "command": "locals",
     "description": "lists local template variables"
   },

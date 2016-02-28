@@ -28,8 +28,8 @@ function validateRoute(route, name) {
   var validKeys = ["type", "path", "exts", "bundleFolders"];
 
   name = (name) ? "route " + name : "route";
-  assert("string" === typeof route.type, name + " has invalid type")
-  assert("string" === typeof route.path, name + " has invalid path")
+  assert("string" === typeof route.type, name + " has invalid type");
+  assert("string" === typeof route.path, name + " has invalid path");
 
   for (var key in route)
     assert(validKeys.indexOf(key) > -1, name + " has unrecognized key " + key);
@@ -65,6 +65,10 @@ function validateConfig(config) {
   for (var route in config.routes)
     validateRoute(config.routes[route], route);
 
+  // Environment
+  for (var key in config.env)
+    assert(key == key.toUpperCase(), "env variable " + key + " isn't capitalized");
+
 }
 
 
@@ -72,7 +76,7 @@ module.exports = function() {
 
   var config;
 
-  // Load config if available
+  // Load config if available, fall back to defaults
   try {
     config = JSON.parse(fs.readFileSync(Utils.makePathAbsolute("sneakers.json"), "utf8"));
   } catch (err) {
@@ -82,8 +86,21 @@ module.exports = function() {
   // Validate
   validateConfig(config);
 
+  // Store environment variables
+  global.env = config.env;
+  for (var key in global.env)
+    process.env[key] = global.env[key];
+
+  // Allow environment variables to be added in to locals using $NODE_ENV notation
+  Utils.traverse(config.locals, function(obj, key, val) {
+    if (!val || "$" !== val[0]) return;
+    val = val.slice(1);
+    if ("undefined" !== typeof process.env[val])
+      obj[key] = process.env[val];
+  });
+
   // Store global variables
-  global.locals = config.locals || {};
+  global.locals = config.locals;
 
   // Copy production variables over second, so as to overwrite non-production
   // when applicable

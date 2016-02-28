@@ -478,7 +478,7 @@ Utils.isHTML = function(type) {
 
 Utils.isPlainObject = function(input) {
   return ("object" == typeof input) && !Array.isArray(input);
-}
+};
 
 
 /**
@@ -496,4 +496,25 @@ Utils.isArrayOfType = function(input, type) {
   for (var i = 0, n = input.length; i < n; i++)
     if (type !== typeof input[i]) return false;
   return true;
-}
+};
+
+
+/**
+
+  Traverses a JSON-object and calls function on each end point.
+
+**/
+
+Utils.traverse = function(obj, fn) {
+
+  var key, val;
+
+  for (key in obj) {
+    val = obj[key];
+    if ("string" === typeof val)
+      fn(obj, key, val);
+    else if (Utils.isPlainObject(val))
+      Utils.traverse(val, fn);
+  }
+
+};
