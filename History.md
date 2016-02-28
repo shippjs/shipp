@@ -1,3 +1,9 @@
+### v0.8.5
+*February 28, 2016*
+* CLI allows viewing/restoration of defaults
+* Adds error handling: great defaults or custom too
+* Updates superloader to v0.3.7 (now creates package.json on demand)
+
 ### v0.8.4
 *February 27, 2016*
 * Updates superloader to v0.3.6 (major bugs in previous version)
@@ -23,3 +29,5 @@
 ### v0.8.0
 *February 25, 2016*
 * Initial release of CLI
+
+Prior....ancient history!

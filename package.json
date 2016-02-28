@@ -1,6 +1,6 @@
 {
   "name": "sneakers",
-  "version": "0.8.4",
+  "version": "0.8.5",
   "description": "Dev server that quickly gets you up and running",
   "bin": "./bin/index.js",
   "main": "./src/server/index.js",
