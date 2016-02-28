@@ -12,11 +12,11 @@
 var program    = require("commander"),
     chalk      = require("chalk"),
     data       = require("./data-editor"),
-    locals     = require("./locals-editor"),
     middleware = require("./middleware-editor"),
     pipelines  = require("./pipelines-editor"),
     routes     = require("./routes-editor"),
-    utils      = require("./cli-utils");
+    utils      = require("./cli-utils"),
+    vars       = require("./vars-editor");
 
 
 
