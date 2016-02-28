@@ -19,6 +19,10 @@ var chalk = require("chalk"),
 //
 
 var Vars = module.exports = {
+  addLocal: function(key, val) {
+    Vars.add("locals", key, val);
+  },
+
   listLocals: function() {
     Vars.list("locals", "Locals");
   },
@@ -55,16 +59,17 @@ var Vars = module.exports = {
   },
 
 
-
   /**
 
     Adds a local variable and acknolwedges with confirmation.
 
+    @param {String} parent Which variable to change (e.g. locals, env)
     @param {String} key The key to lookup (supports dot-notation)
+    @param {*} val The value to assign
 
   **/
 
-  add: function(key, val) {
+  add: function(parent, key, val) {
 
     var editor = require("./config-editor");
 
@@ -78,10 +83,10 @@ var Vars = module.exports = {
     else if (/^\-?([0-9]+\.?[0-9]*|\.[0-9]*)$/.test(val))
       val = parseFloat(val);
 
-    editor.set("locals." + key, val);
+    editor.set(parent + "." + key, val);
     editor.save();
 
-    console.log("   " + chalk.cyan("Added:") + " local variable " + chalk.yellow(key) + " now contains " + chalk.yellow(val));
+    console.log("   " + chalk.cyan("Added:") + " " + parent + " variable " + chalk.yellow(key) + " now contains " + chalk.yellow(val));
     console.log("");
 
   },
