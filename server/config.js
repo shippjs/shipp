@@ -10,7 +10,62 @@
 **/
 
 var fs = require("fs"),
+    assert = require("assert"),
     Utils = require("./utils");
+
+
+/**
+
+  Tests that a route is valid
+
+  @param {Object} route The route to check
+  @param {String} [name] Name of the route (for error handling)
+
+**/
+
+function validateRoute(route, name) {
+
+  var validKeys = ["type", "path", "exts", "bundleFolders"];
+
+  name = (name) ? "route " + name : "route";
+  assert("string" === typeof route.type, name + " has invalid type")
+  assert("string" === typeof route.path, name + " has invalid path")
+
+  for (var key in route)
+    assert(validKeys.indexOf(key) > -1, name + " has unrecognized key " + key);
+
+}
+
+
+/**
+
+  Ensures that a config file is properly formatted. Throws errors on issues.
+
+  @param {Object} config The configuration
+
+**/
+
+function validateConfig(config) {
+
+  // Objects
+  assert(Utils.isPlainObject(config), "config is not an object");
+  assert(Utils.isPlainObject(config.middleware), "middleware is not an object");
+  assert(Utils.isPlainObject(config.pipelines), "pipelines is not an object");
+  assert(Utils.isPlainObject(config.routes), "routes is not an object");
+  assert(Utils.isPlainObject(config.env), "env is not an object");
+
+  // Arrays
+  assert(Utils.isArrayOfType(config.data, "string"), "data isn't an array of strings");
+  assert(Utils.isArrayOfType(config.middleware.beforeAll, "string"), "middleware.beforeAll isn't an array of strings");
+  assert(Utils.isArrayOfType(config.middleware.beforeRoutes, "string"), "middleware.beforeRoutes isn't an array of strings");
+  assert(Utils.isArrayOfType(config.middleware.afterRoutes, "string"), "middleware.afterRoutes isn't an array of strings");
+  assert(Utils.isArrayOfType(config.middleware.errorHandler, "string"), "middleware.errorHandler isn't an array of strings");
+
+  // Routes
+  for (var route in config.routes)
+    validateRoute(config.routes[route], route);
+
+}
 
 
 module.exports = function() {
@@ -23,6 +78,9 @@ module.exports = function() {
   } catch (err) {
     config = Object.assign({}, require("./defaults"));
   }
+
+  // Validate
+  validateConfig(config);
 
   // Store global variables
   global.locals = config.locals || {};
