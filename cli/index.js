@@ -57,6 +57,7 @@ module.exports = function() {
     .action(function() {
       data.list();
       locals.list();
+      vars.listEnvs();
       middleware.list();
       pipelines.list();
       routes.list();
@@ -81,6 +82,18 @@ module.exports = function() {
   program
     .command("defaults:restore")
     .action(restoreDefaults);
+
+  program
+    .command("env")
+    .action(vars.listEnvs);
+
+  program
+    .command("env:add <key> <value>")
+    .action(vars.addEnv);
+
+  program
+    .command("env:remove <key>")
+    .action(vars.removeEnv);
 
   program
     .command("locals")
@@ -247,6 +260,7 @@ function listDefaults() {
 
   data.list();
   locals.list();
+  vars.listEnvs();
   middleware.list();
   pipelines.list();
   routes.list();
