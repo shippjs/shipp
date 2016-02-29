@@ -1,5 +1,5 @@
 {
-  "name": "sneakers",
+  "name": "shipp",
   "version": "0.8.7",
   "description": "Dev server that quickly gets you up and running",
   "bin": "./bin/index.js",
@@ -37,6 +37,6 @@
   },
   "repository": {
     "type": "git",
-    "url": "git://github.com/brandoncarl/sneakers.git"
+    "url": "git://github.com/brandoncarl/shipp.git"
   }
 }
