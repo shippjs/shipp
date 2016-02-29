@@ -100,7 +100,7 @@ var dataEditor = module.exports = {
       data.push(route ? { path : folder, url : route } : folder);
       editor.set("data", data);
       editor.save();
-      console.log("   " + chalk.cyan("Added:") + " sneakers now includes " + chalk.yellow(folder) + " in your data directory");
+      console.log("   " + chalk.cyan("Added:") + " shipp now includes " + chalk.yellow(folder) + " in your data directory");
     }
 
     console.log("");
@@ -130,7 +130,7 @@ var dataEditor = module.exports = {
       data.splice(idx);
       editor.set("data", data);
       editor.save();
-      console.log("   " + chalk.cyan("Removed:") + " sneakers no longer includes " + chalk.yellow(folder) + " in your data directory");
+      console.log("   " + chalk.cyan("Removed:") + " shipp no longer includes " + chalk.yellow(folder) + " in your data directory");
     }
 
     console.log("");

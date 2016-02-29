@@ -2,7 +2,7 @@
 
   config-editor.js
 
-  Helper functions to edit the sneakers.json file.
+  Helper functions to edit the shipp.json file.
 
 **/
 
@@ -22,7 +22,7 @@ var editor = module.exports = {
 
   defaults: require("../server/defaults.js"),
 
-  filename: path.join(process.cwd(), "sneakers.json"),
+  filename: path.join(process.cwd(), "shipp.json"),
 
 
   /**

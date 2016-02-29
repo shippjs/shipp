@@ -81,11 +81,11 @@ var Routes = module.exports = {
     // Remove if existing
     if (prev) {
       if (prev.path === folder) {
-        console.log("   " + chalk.cyan("No Change:") + " sneakers will already " + suffix(prev.url, prev.path));
+        console.log("   " + chalk.cyan("No Change:") + " shipp will already " + suffix(prev.url, prev.path));
         console.log("");
         return;
       }
-      console.log("   " + chalk.cyan("Removed:") + " sneakers will no longer " + suffix(prev.url, prev.path));
+      console.log("   " + chalk.cyan("Removed:") + " shipp will no longer " + suffix(prev.url, prev.path));
     }
 
     // Add new
@@ -96,7 +96,7 @@ var Routes = module.exports = {
     editor.set("routes." + route, obj);
     editor.save();
 
-    console.log("   " + chalk.cyan("Added:") + " sneakers will " + suffix(route, folder));
+    console.log("   " + chalk.cyan("Added:") + " shipp will " + suffix(route, folder));
     console.log("");
 
   },
