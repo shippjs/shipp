@@ -1,5 +1,9 @@
+### v0.9.1
+*February 29, 2016*
+* Upgrades superloader (tons of bug fixes and tests)
+
 ### v0.9.0
-*March 1, 2016*
+*February 29, 2016*
 * Rebrand
 * Adds Apache v2.0 License information
 
