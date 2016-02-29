@@ -19,6 +19,14 @@ var Bundler     = require("./bundler"),
     makeQuery   = Promise.promisify(global.db.queries);
 
 
+
+//
+//  Lookup where key is file path and value is array of routes. Used for route removal.
+//
+
+var lookup = {};
+
+
 /**
 
   Extracts metadata from a file if appropriate (HTML-like)
@@ -156,18 +164,56 @@ function createQueryFn(queries) {
 
 **/
 
-function addFile(router, route, file, type, basePath) {
+function addFile(router, route, file, type) {
 
-    var metadata = extractMetadata(file, type),
-        compiler = createCompiler(file, type),
-        handler  = createHandler(type, compiler, metadata);
+  // Add to list of extensions if not present
+  if (!Pipelines.hasPipeline(file.ext)) Pipelines.addPipeline(file.ext);
 
-    // Add routes to router
-    Utils.makeRoutes(route, file, { type : type, params : metadata.params }).forEach(function(r) {
+  var metadata = extractMetadata(file, type),
+      compiler = createCompiler(file, type),
+      handler  = createHandler(type, compiler, metadata);
+
+  // Add routes to router
+  Utils.makeRoutes(route, file, { type : type, params : metadata.params }).forEach(function(r) {
+
+    // Store path in lookup (for later removal if necessary)
+    // Note that this section could be removed in production
+    lookup[file.path] = lookup[file.path] || [];
+
+    if (-1 === lookup[file.path].indexOf(r)) {
+      lookup[file.path].push(r);
       router.get(r, handler);
-    });
+    }
+
+  });
 
 }
+
+
+/**
+
+  Removes routes from the router matching the regex.
+
+  @param {Router} router The router to search
+  @param {RegExp} re The pattern to match
+
+**/
+
+function removeRoutes(router, routes) {
+
+  if (!router._router || !router._router.stack || !routes || !routes.length) return;
+
+  var stack = router._router.stack,
+      re = new RegExp("^(" + routes.map(Utils.escapeRegex).join("|") + ")$");
+
+  // Express keeps routes as a stack in _router.stack. Note that this section
+  // is not part of the official API and thus subject to change
+  for (var i = stack.length - 1; i >= 0; i--)
+    if (stack[i].route && re.test(stack[i].route.path))
+      stack.splice(i, 1);
+
+}
+
 
 
 /**
@@ -187,32 +233,40 @@ module.exports = function(options) {
 
   var router  = express(),
       ignored = [],
-      files   = Utils.mapFiles(options.path, options),
-      exts    = {},
-      type    = Array.isArray(options.exts) ? options.exts[0] : options.exts;
+      type    = Array.isArray(options.exts) ? options.exts[0] : options.exts,
+      files;
+
+  // Since we can have multiple exts, we attach the type to the options object
+  options.type = type;
+  files = Utils.mapFiles(options.path, options),
 
   files.forEach(function(file) {
 
-    // Add to list of extensions if not present
-    if (!Pipelines.hasPipeline(file.ext)) Pipelines.addPipeline(file.ext);
-
     // Handle the file
     addFile(router, options.url, file, type);
-
-    // Add to extension watch list
-    exts[file.ext] = 1;
 
     // Remove ignored directories from watch list
     if (file.ignored) ignored = ignored.concat(file.ignored);
 
   });
 
-  for (var key in exts)
-    Utils.watch(options.path, key, {
+  Utils.watch(options.path, "*", {
+    chokidar: {
       ignoreInitial : true,
-      ignored : ignored,
-      type : type
-    });
+      ignored: ignored,
+      type: type,
+    },
+    add: function(file, compiled) {
+      addFile(router, options.url, Utils.parse(file, options.path), type);
+    },
+    change: function(file, compiled) {
+      global.server.reload(compiled);
+    },
+    unlink: function(file, compiled) {
+      removeRoutes(router, lookup[file]);
+      delete lookup[file];
+    }
+  });
 
   return router;
 

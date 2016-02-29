@@ -28,6 +28,7 @@ var fs       = require("fs"),
     path     = require("path"),
     chokidar = require("chokidar"),
     Promise  = require("bluebird"),
+    reorg    = require("reorg"),
     Utils;
 
 
@@ -152,6 +153,7 @@ Utils.flagBundles = function(p, files, ext) {
   @param {String} p Path to map
   @param {Object} [options.recursive] If true, processes recursively
   @param {Boolean} [options.bundleFolders] If true, automatically bundles appropriate folders
+  @param {String} [options.type] The file type of the bundles (e.g. js)
 
 **/
 
@@ -162,7 +164,7 @@ Utils.mapFiles = function(p, options) {
 
   // Make path absolute before call (for comparison after)
   p = Utils.makePathAbsolute(p);
-  files = Utils.readDirectory(p, options.recursive);
+  files = Utils.readDirectory(p, options.recursive, p);
 
   // Sort in reverse order so that directory calls come last
   files.sort(function(a, b) { return (a.path < b.path) ? -1 : (a.path > b.path) ? 1 : 0; }).reverse();
@@ -174,26 +176,38 @@ Utils.mapFiles = function(p, options) {
       Array.prototype.push.apply(files, files.splice(i, 1));
 
   // Remove subdirectory files if index.* is encountered
-  if (options.bundleFolders) files = Utils.flagBundles(p, files, options.ext);
+  if (options.bundleFolders) files = Utils.flagBundles(p, files, options.type);
 
-  files.forEach(function(file) {
-
-    // Get rid of leading dot
-    file.ext = file.ext.replace(/^\./, "");
-
-    // Attach base path
-    file.basePath = p;
-
-    // Attach relative path
-    file.folder = path.relative(p, file.path.replace(new RegExp(file.base + "$"), ""));
-    results.push(file);
-
-  });
-
-  return results;
+  return files;
 
 };
 
+
+/**
+
+  Parses a file name and adds additional information
+
+**/
+
+Utils.parse = function(p, base) {
+
+  var p = Utils.makePathAbsolute(p),
+      parsed = path.parse(p);
+
+  parsed.path = p;
+
+  // Get rid of leading dot for an extension
+  parsed.ext = parsed.ext.replace(/^\./, "");
+
+  if (base) {
+    base = Utils.makePathAbsolute(base);
+    parsed.basePath = base;
+    parsed.folder = path.relative(base, parsed.path.replace(new RegExp(parsed.base + "$"), ""));
+  }
+
+  return parsed;
+
+};
 
 
 /**
@@ -259,10 +273,11 @@ Utils.makeRoutes = function(baseRoute, file, options) {
 
   @param {String} p Path to read
   @param {Boolean} recursive Whether to read recursively (default: true)
+  @param [String] base Optional base path from which to parse
 
 **/
 
-Utils.readDirectory = function(p, recursive) {
+Utils.readDirectory = function(p, recursive, base) {
 
   var results = [];
 
@@ -289,11 +304,9 @@ Utils.readDirectory = function(p, recursive) {
     // Recursively walk directory, or add file
     if (stats.isDirectory()) {
       if (recursive)
-        results = results.concat(Utils.readDirectory(file, true));
+        results = results.concat(Utils.readDirectory(file, true, base));
     } else {
-      parsed = path.parse(file);
-      parsed.path = file;
-      results.push(parsed);
+      results.push(Utils.parse(file, base || p));
     }
 
   });
@@ -368,43 +381,51 @@ Utils.getRegExpMatches = function(str, pattern, idx) {
 
 /**
 
-  Watches a directory for an extension, with options
+  Watches a directory via chokidar
 
   @param {String} sourceDir The source directory (without wildcards)
   @param {String} sourceExt The source extension (defaults to "*")
-  @param {Object} options The object options to pass to chokidar
+  @param {Object} [options.chokidar] Options to pass to chokidar
+  @param {Function} [options.*] Event handlers (file, compiled) where * is name of event
 
 **/
 
-Utils.watch = function(sourceDir, sourceExt, options) {
+Utils.watch = reorg(function(sourceDir, sourceExt, options) {
 
   var p;
 
-  // Defaults
-  if ("object" === typeof sourceExt) {
-    options = sourceExt;
-    sourceExt = "*";
-  }
-
-  options = options || {};
-
   // For source extension, if not wildcard, convert to "*.ext"
-  if ("*" !== sourceExt)
-    sourceExt = "*." + sourceExt.replace(/^[\*\.]+/g, "");
+  if ("*" !== sourceExt) sourceExt = "*." + sourceExt.replace(/^[\*\.]+/g, "");
 
-  // Create path, and ensure that chokidar's cwd is root
+  // Ensure we have chokidar options and that chokidar's cwd is root
   p = Utils.makePathAbsolute(path.join(sourceDir, "**", sourceExt));
-  options.cwd = path.parse(p).root;
+  options.chokidar = options.chokidar || {};
+  options.chokidar.cwd = path.parse(p).root;
 
-  chokidar.watch(p, options).on("change", function(file) {
-    if (options.type) {
-      var parsed = path.parse(file);
-      file = path.join(parsed.root, parsed.dir, parsed.name + "." + options.type);
+  chokidar.watch(p, options.chokidar).on("all", function(event, file) {
+
+    var parsed, compiled;
+
+    if (options[event] || options.all) {
+
+      // File is missing root directory
+      file = path.join(options.chokidar.cwd, file);
+
+      // Map file to compiled version
+      if (options.type) {
+        parsed = path.parse(file);
+        compiled = path.join(parsed.root, parsed.dir, parsed.name + "." + options.type);
+      }
+
+      // Callback
+      if (options[event]) options[event](file, compiled);
+      if (options.all) options.all(file, compiled);
+
     }
-    global.server.reload(file);
+
   });
 
-};
+}, "string!", ["string", "*"], "object");
 
 
 /**
@@ -518,3 +539,16 @@ Utils.traverse = function(obj, fn) {
   }
 
 };
+
+
+/**
+
+  Escapes regex. From lodash.com by John Dalton.
+
+  @param {String} str The string to escape
+
+**/
+
+Utils.escapeRegex = function(str) {
+  return str.replace(/[\\^$.*+?()[\]{}|]/g, "\\$&");
+}

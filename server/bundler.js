@@ -45,9 +45,12 @@ var Utils        = require("./utils"),
 
 var Bundler = module.exports = function(options) {
 
-  // Determine which extensions to look for
+  // Determine which extensions to look for. Our extensions come without the
+  // preceeding "." that webpack needs: make sure to add them
   var self = this,
-      exts = Utils.uniqueExtensions(path.join(options.entry, "..")).concat([""]);
+      exts = Utils.uniqueExtensions(path.join(options.entry, ".."))
+                  .map(function(x) { return "." + x; })
+                  .concat([""]);
 
   // Set up defaults
   options = Object.assign({ compile: true, watch : true, path : "/scripts/" }, options);
@@ -68,7 +71,7 @@ var Bundler = module.exports = function(options) {
   // Store path to compiled file
   this.path = path.join(this.config.output.path, options.filename);
 
-  // Set up bundler with in-memory file sysstem
+  // Set up bundler with in-memory file system
   this.bundler = webpack(this.config);
   this.bundler.outputFileSystem = global.fs;
 
@@ -78,11 +81,11 @@ var Bundler = module.exports = function(options) {
 
   // Only watch directory with index file: breaks outside watchers otherwise
   if (options.watch) {
-    chokidar.watch(path.join(path.dirname(options.entry), "**", "*")).on("all", function(event, file) {
-      self.bundler.run(function(err, stats) {
+    Utils.watch(path.dirname(options.entry), "*", { all: function() {
+      self.bundler.run(function() {
         global.server.reload(self.path);
       });
-    });
+    }});
   }
 
   // Optionally compile
