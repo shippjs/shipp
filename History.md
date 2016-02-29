@@ -1,3 +1,8 @@
+### v0.9.0
+*March 1, 2016*
+* Rebrand
+* Adds Apache v2.0 License information
+
 ### v0.8.7
 *February 28, 2016*
 * Overhauls file watching and allows for dynamic addition/removal
