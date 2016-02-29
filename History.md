@@ -1,3 +1,7 @@
+### v0.8.7
+*February 28, 2016*
+* Overhauls file watching and allows for dynamic addition/removal
+
 ### v0.8.6
 *February 28, 2016*
 * Adds environment variables! And the ability for locals to ref environments
