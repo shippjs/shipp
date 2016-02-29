@@ -136,4 +136,4 @@ Type `shipp help` for CLI options.
 
 
 ## License
-MIT
+Apache 2.0
