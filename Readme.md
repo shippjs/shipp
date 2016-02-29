@@ -1,6 +1,6 @@
-# sneakers
+# leadship
 
-sneakers is your zero configuration front-end dream tool. By using sensible
+leadship is your zero configuration front-end dream tool. By using sensible
 defaults, and a handy CLI, you can get almost any dev-project up and running
 with no work. Compilation pipelines are easy, and dependencies are hot-loaded.
 As for the haters, you can of course override the config, we just try to make
@@ -9,7 +9,7 @@ it unnecessary.
 For example, adding a Jade-Handlebars-HTML Minifier pipeline requires no grunts
 and no gulps. Assuming we denote these with "jbs" extension, simply type:
 
-`$ sneakers pipelines:add *.jbs "jade>handlebars>html-minifier"`
+`$ leadship pipelines:add *.jbs "jade>handlebars>html-minifier"`
 
 The end goal is to fully automate front-end pipelines from development to
 Dockerized microservice deployment with minimal configuration. We're not there
@@ -37,7 +37,7 @@ How do we do this with zero configuration? See below!
 ## Installation
 
 ```
-$ npm install -g sneakers
+$ npm install -g leadship
 ```
 
 ## Zero Configuration
@@ -47,7 +47,7 @@ By using a core set of rules, we are able to use zero configuration.
 1. **Compilation pipelines are inferred from, and attached to file extensions.**
 For example, `.coffee` files will be automatically transpiled by CoffeeScript,
 `.ts` by TypeScript, `.hbs` by Handlebars, and so on. You can override these
-settings using the CLI. For example, `$ sneakers pipelines:add html dust`
+settings using the CLI. For example, `$ leadship pipelines:add html dust`
 
 2. **Route handlers are inferred from directory structure**. For example,
   ```
@@ -103,8 +103,8 @@ settings using the CLI. For example, `$ sneakers pipelines:add html dust`
 
 ## Recommended Directory Structure
 
-Not only does sneakers cover many directory structures automatically, you can
-use the CLI or `sneakers.json` file to roll-your-own.
+Not only does leadship cover many directory structures automatically, you can
+use the CLI or `leadship.json` file to roll-your-own.
 
 Here's what we recommend:
 
@@ -132,7 +132,7 @@ only for templates and contains the wildcard portion of the URL.
 
 ## CLI
 
-Type `sneakers help` for CLI options.
+Type `leadship help` for CLI options.
 
 
 ## License

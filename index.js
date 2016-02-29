@@ -2,7 +2,7 @@
 
   index.js
 
-  Entry point for sneakers.
+  Entry point for leadship.
 
 **/
 

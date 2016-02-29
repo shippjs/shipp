@@ -194,11 +194,11 @@ function showHelp() {
   var columns = [];
 
   console.log("");
-  console.log("To start the server, run", chalk.magenta("sneakers start"));
+  console.log("To start the server, run", chalk.magenta("leadship start"));
   console.log("");
   console.log(chalk.cyan(" Usage:"));
   console.log("");
-  console.log("    " + chalk.magenta("sneakers") + chalk.yellow(" <command> [<args>]"));
+  console.log("    " + chalk.magenta("leadship") + chalk.yellow(" <command> [<args>]"));
   console.log("");
   console.log(chalk.cyan(" Commands:"));
   console.log("");
@@ -271,7 +271,7 @@ function listDefaults() {
 
 /**
 
-  Deletes the sneakers.json file and restores defaults.
+  Deletes the leadship.json file and restores defaults.
 
 **/
 
@@ -281,7 +281,7 @@ function restoreDefaults() {
 
   console.log("");
   str  = chalk.red("   Warning!") + " This command will delete your ";
-  str += chalk.yellow("sneakers.json") + " file (using default options instead)";
+  str += chalk.yellow("leadship.json") + " file (using default options instead)";
   console.log(str);
   console.log("   To continue type DELETE and press enter.");
 
@@ -292,7 +292,7 @@ function restoreDefaults() {
     res = res.toString().trim();
 
     if (/^delete$/i.test(res)) {
-      console.log("   We've restored defaults by deleting your", chalk.yellow("sneakers.json"), "file");
+      console.log("   We've restored defaults by deleting your", chalk.yellow("leadship.json"), "file");
       require("./config-editor").remove();
     } else
       console.log("   Nothing done. Come back if you need us.");
