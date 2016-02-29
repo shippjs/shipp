@@ -1,4 +1,12 @@
-# shipp
+<img src="https://cldup.com/xBn8J2J6xm.png" alt="shipp" width=124/>
+
+## Installation
+
+```
+$ npm install -g shipp
+```
+
+## Introduction
 
 shipp is your zero configuration front-end dream tool. By using sensible
 defaults, and a handy CLI, you can get almost any dev-project up and running
@@ -33,12 +41,6 @@ How do we do this with zero configuration? See below!
 * Custom middleware built on [express](https://github.com/expressjs/express)
 * Local and environment variables with advanced injection
 
-
-## Installation
-
-```
-$ npm install -g shipp
-```
 
 ## Zero Configuration
 
