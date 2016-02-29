@@ -75,12 +75,12 @@ module.exports = {
     console.log("");
 
     if (prev === pipeline) {
-      console.log("   " + chalk.red("No Change:") + " sneakers was already processing " + suffix(pipeline));
+      console.log("   " + chalk.red("No Change:") + " leadship was already processing " + suffix(pipeline));
     } else {
       editor.set(key, pipeline);
       editor.save();
-      if (prev && prev !== pipeline) console.log("   " + chalk.cyan("Removed:") + " sneakers will no longer process " + suffix(prev));
-      console.log("   " + chalk.cyan("Added:") + " sneakers will process " + suffix(editor.get(key)));
+      if (prev && prev !== pipeline) console.log("   " + chalk.cyan("Removed:") + " leadship will no longer process " + suffix(prev));
+      console.log("   " + chalk.cyan("Added:") + " leadship will process " + suffix(editor.get(key)));
     }
 
     console.log("");
@@ -114,7 +114,7 @@ module.exports = {
     } else {
       editor.unset("pipelines." + ext);
       editor.save();
-      console.log("   " + chalk.cyan("Removed:") + " sneakers will no longer process " + chalk.yellow("*." + ext) + " files with " + chalk.yellow(prev));
+      console.log("   " + chalk.cyan("Removed:") + " leadship will no longer process " + chalk.yellow("*." + ext) + " files with " + chalk.yellow(prev));
     }
 
     console.log("");

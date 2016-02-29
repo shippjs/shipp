@@ -30,7 +30,7 @@ var Vars = module.exports = {
     if ("" === val) {
       var msg =  "If you're trying to add a local variable linked to environment, make sure to escape it: ";
       console.log("\n" + chalk.magenta("   Warning!"), msg);
-      console.log("            e.g. " + chalk.yellow("sneakers local:add siteName \"\$SITE_NAME\""));
+      console.log("            e.g. " + chalk.yellow("leadship local:add siteName \"\$SITE_NAME\""));
     }
 
     Vars.add("locals", key, val);

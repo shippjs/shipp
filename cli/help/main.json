@@ -1,7 +1,7 @@
 [
   {
     "command": "start",
-    "description": "start the sneakers server"
+    "description": "start the leadship server"
   },
   {
     "command": "help",
