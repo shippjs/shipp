@@ -1,4 +1,4 @@
-<img src="https://cldup.com/xBn8J2J6xm.png" alt="shipp" width=124/>
+<p align="center"><img src="https://cldup.com/xBn8J2J6xm.png" alt="shipp" width=124/></p>
 
 ## Installation
 
