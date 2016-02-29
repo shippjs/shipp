@@ -12,7 +12,7 @@
     "start": "node bin"
   },
   "author": "Brandon Carl",
-  "license": "MIT",
+  "license": "Apache 2.0",
   "dependencies": {
     "bluebird": "^3.2.1",
     "browser-sync": "^2.11.1",
