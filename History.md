@@ -1,3 +1,7 @@
+### v0.9.3
+*March 1, 2016*
+* Adds basic production mode
+
 ### v0.9.2
 *March 1, 2016*
 * Fixes missing data problems in data-server
