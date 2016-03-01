@@ -167,18 +167,21 @@ module.exports = function() {
 
 **/
 
-function start() {
+function start(env) {
 
   var server = require("../server/");
 
   // Start the server
   console.log(chalk.green.bold("\nStarting server...\n"));
-  server({
-    liveRefresh: true
-  });
 
-  // Start browser sync and proxy
-  global.server.init({ proxy : "localhost:" + global.ports.server });
+  if (/^prod/i.test(env)) {
+    process.env.NODE_ENV = "production";
+    server();
+  } else {
+    // Start browser sync and proxy
+    server({ liveRefresh: true });
+    global.server.init({ proxy : "localhost:" + global.ports.server });
+  }
 
 }
 
