@@ -1,3 +1,8 @@
+### v0.9.2
+*March 1, 2016*
+* Fixes missing data problems in data-server
+* Adds logo
+
 ### v0.9.1
 *February 29, 2016*
 * Upgrades superloader (tons of bug fixes and tests)
