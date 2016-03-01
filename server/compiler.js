@@ -11,6 +11,7 @@
 **/
 
 var Bundler     = require("./bundler"),
+    Cache       = require("./cache"),
     express     = require("express"),
     Metadata    = require("./metadata"),
     Pipelines   = global.pipelines,
@@ -39,11 +40,14 @@ var lookup = {};
 
 function extractMetadata(file, type) {
 
-  var metadata = {};
+  var metadata;
 
   if (Utils.isHTML(type)) {
     metadata = Metadata.extract(Utils.readFileHead(file.path, 500));
     metadata.isTemplate = Utils.isTemplate(file, type);
+  } else {
+    // For non-HTML files default to caching
+    metadata = { cache: true };
   }
 
   return metadata;
@@ -74,6 +78,7 @@ function createCompiler(file, type) {
 
   Creates a route handler for a file
 
+  @param {File} file File information provided by Utils.parse
   @param {String} type Type of file
   @param {Function} compiler Function that compiles and returns promise
   @param {Object} [metadata] Extracted metadata
@@ -81,20 +86,26 @@ function createCompiler(file, type) {
 
 **/
 
-function createHandler(type, compiler, metadata) {
+function createHandler(file, type, compiler, metadata) {
 
   var tasks = [compiler],
+      isHTML = Utils.isHTML(type),
+      cache,
       key;
 
   // Add data query if necessary
   metadata = metadata || {};
   if (metadata.data) tasks.unshift(createQueryFn(metadata.data));
 
+  // Store cache flag (for speed increase)
+  cache = Utils.isProduction() && metadata.cache;
+
   return function(req, res, next) {
 
-    var data = {};
+    var data = {},
+        compiled;
 
-    if (Utils.isHTML(type)) {
+    if (isHTML) {
 
       // Data object will include locals, cookies, session, params, query, slug
       // and if applicable, database query results
@@ -124,9 +135,17 @@ function createHandler(type, compiler, metadata) {
 
     }
 
-    Utils.sequence(tasks, data)
-    .then(res.type(type).send.bind(res))
-    .catch(function(err) {
+    // We are currently assuming a synchronous, non-shared cache. This should
+    // help with performance.
+    if (cache && (compiled = Cache.get(file.path))) {
+      res.type(type).send(compiled);
+      return;
+    }
+
+    Utils.sequence(tasks, data).then(function(compiled) {
+      res.type(type).send(compiled);
+      if (cache) Cache.set(file.path, compiled);
+    }).catch(function(err) {
       if (/not found/i.test(err.message)) res.status(404);
       next(err);
     });
@@ -171,18 +190,22 @@ function addFile(router, route, file, type) {
 
   var metadata = extractMetadata(file, type),
       compiler = createCompiler(file, type),
-      handler  = createHandler(type, compiler, metadata);
+      handler  = createHandler(file, type, compiler, metadata);
 
   // Add routes to router
   Utils.makeRoutes(route, file, { type : type, params : metadata.params }).forEach(function(r) {
 
-    // Store path in lookup (for later removal if necessary)
-    // Note that this section could be removed in production
-    lookup[file.path] = lookup[file.path] || [];
-
-    if (-1 === lookup[file.path].indexOf(r)) {
-      lookup[file.path].push(r);
+    if (Utils.isProduction()) {
       router.get(r, handler);
+
+    } else {
+      // Store path in lookup (for later removal if necessary)
+      lookup[file.path] = lookup[file.path] || [];
+
+      if (-1 === lookup[file.path].indexOf(r)) {
+        lookup[file.path].push(r);
+        router.get(r, handler);
+      }
     }
 
   });

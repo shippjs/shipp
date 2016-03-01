@@ -40,6 +40,7 @@ How do we do this with zero configuration? See below!
 * Database querying via [Universql](https://github.com/brandoncarl/universql)  
 * Custom middleware built on [express](https://github.com/expressjs/express)
 * Local and environment variables with advanced injection
+* Optional caching (on by default) of templated routes in production
 
 
 ## Zero Configuration
