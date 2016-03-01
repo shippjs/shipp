@@ -29,6 +29,7 @@ var fs       = require("fs"),
     chokidar = require("chokidar"),
     Promise  = require("bluebird"),
     reorg    = require("reorg"),
+    zlib     = require("zlib"),
     Utils;
 
 
@@ -555,4 +556,52 @@ Utils.traverse = function(obj, fn) {
 
 Utils.escapeRegex = function(str) {
   return str.replace(/[\\^$.*+?()[\]{}|]/g, "\\$&");
+};
+
+
+
+/**
+
+  Compresses a string.
+
+  @param {String} method The compression method
+  @param {String} str The string to compress
+  @param {Boolean} maxCompress If true, maximum compression level
+  @param {Function} next Callback of form (err, compressed)
+
+**/
+
+Utils.compress = function(method, str, level, next) {
+
+  var zip = ("gzip" === method) ? zlib.gzip : zlib.deflate;
+
+  level = level ? zlib.Z_BEST_COMPRESSION : zlib.Z_DEFAULT_COMPRESSION;
+  zip(str, { level : level }, next);
+
+};
+
+
+/**
+
+  Sends a compressed or uncompressed response.
+
+  @param {Response} res The response
+  @param {String} type The file type
+  @param {Buffer} buf The buffer to send
+  @param {String} method The method to use
+
+**/
+
+Utils.send = function(res, type, buf, method) {
+
+  res.type(type);
+
+  if ("raw" === method || !method) {
+    res.send(buf);
+  } else {
+    res.setHeader("Content-Encoding", method);
+    res.removeHeader("Content-Length");
+    res.send(buf);
+  }
+
 };
