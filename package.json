@@ -1,6 +1,6 @@
 {
   "name": "shipp",
-  "version": "0.9.3",
+  "version": "0.9.4",
   "description": "Dev server that quickly gets you up and running",
   "bin": "./bin/index.js",
   "main": "./src/server/index.js",
