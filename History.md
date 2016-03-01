@@ -1,3 +1,7 @@
+### v0.9.5
+*March 1, 2016*
+* Caching and compression of compiled scripts
+
 ### v0.9.4
 *March 1, 2016*
 * Fixes BrowserSync bug
