@@ -28,7 +28,7 @@
     "lowdb": "^0.12.2",
     "memory-fs": "^0.3.0",
     "morgan": "^1.7.0",
-    "reorg": "^0.2.1",
+    "reorg": "^1.0.0",
     "st": "^1.1.0",
     "superloader": "^0.3.8",
     "universql": "^0.1.1",
