@@ -1,3 +1,8 @@
+### v0.9.7
+*March 3, 2016*
+* Server now finds open port
+* Adds res.locals to rendering data
+
 ### v0.9.6
 *March 2, 2016*
 * Bundler fixes loader resolution issues
