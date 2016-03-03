@@ -169,8 +169,9 @@ function start(env) {
     server();
   } else {
     // Start browser sync and proxy
-    server({ liveRefresh: true });
-    global.server.init({ proxy : "localhost:" + global.ports.server });
+    server({ liveRefresh: true }, function() {
+      global.server.init({ proxy : "localhost:" + global.ports.server });
+    });
   }
 
 }
