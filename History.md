@@ -1,3 +1,11 @@
+### v0.9.6
+*March 2, 2016*
+* Bundler fixes loader resolution issues
+* Bundler no longer "watches" in production
+* Bundler outputs error messages if applicable
+* Data-store processes only JSON files, provides error handling
+* Sensible Cache-Control defaults (24 hours, consistent with st)
+
 ### v0.9.5
 *March 1, 2016*
 * Caching and compression of compiled scripts
