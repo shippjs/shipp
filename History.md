@@ -1,3 +1,8 @@
+### v0.9.8
+*March 14, 2016*
+* Improved: BrowserSync ghostMode disabled by default
+* Fixed: templated pages cache appropriately
+
 ### v0.9.7
 *March 3, 2016*
 * Server now finds open port
