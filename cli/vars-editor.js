@@ -154,19 +154,21 @@ var Vars = module.exports = {
   remove: function(parent, key) {
 
     var editor = require("./config-editor"),
-        prev = editor.get(parent + "." + key);
+        ref    = (parent) ? parent + "." + key : key;
+        prev   = editor.get(ref);
 
     console.log("");
 
-    editor.unset(parent + "." + key);
+    editor.unset(ref);
     editor.save();
 
+    parent = (parent) ? " " + parent : ""
     if ("undefined" === typeof prev)
-      console.log("   " + chalk.red("No Change:") + " there was no " + parent + " variable called " + chalk.yellow(key));
+      console.log("   " + chalk.red("No Change:") + " there was no" + parent + " variable called " + chalk.yellow(key));
     else if ("object" === typeof prev)
-      console.log("   " + chalk.cyan("Removed: ") + parent + " variable " + chalk.yellow(key) + " has been unset");
+      console.log("   " + chalk.cyan("Removed:") + parent + " variable " + chalk.yellow(key) + " has been unset");
     else
-      console.log("   " + chalk.cyan("Removed: ") + parent + " variable " + chalk.yellow(key) + " has been unset from " + chalk.yellow(prev));
+      console.log("   " + chalk.cyan("Removed:") + parent + " variable " + chalk.yellow(key) + " has been unset, previously " + chalk.yellow(prev));
     console.log("");
 
   }
