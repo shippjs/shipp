@@ -77,17 +77,20 @@ var Vars = module.exports = {
   list: function(key, title) {
 
     var editor = require("./config-editor"),
-        vars   = editor.get(key) || {},
+        val    = editor.get(key) || {},
         str;
 
     console.log("");
     console.log(chalk.cyan(" " + title + ":"));
     console.log("");
 
-    if (!Object.keys(vars).length)
+    if (!Object.keys(val).length)
       console.log("   There are no " + key + " variables in your project");
     else {
-      str = JSON.stringify(vars, null, 2).split("\n").map(function(line) { return "   " + line; }).join("\n");
+      if ("string" === typeof val)
+        str = "   Your " + chalk.yellow(key) + " is set to " + chalk.yellow(val);
+      else
+        str = JSON.stringify(val, null, 2).split("\n").map(function(line) { return "   " + line; }).join("\n");
       console.log(str);
     }
 
