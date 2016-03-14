@@ -170,7 +170,10 @@ function start(env) {
   } else {
     // Start browser sync and proxy
     server({ liveRefresh: true }, function() {
-      global.server.init({ proxy : "localhost:" + global.ports.server });
+      global.server.init({
+        proxy: "localhost:" + global.ports.server,
+        ghostMode: false
+      });
     });
   }
 
