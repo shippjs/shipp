@@ -24,6 +24,10 @@ var Vars = module.exports = {
     Vars.add("env", key.toUpperCase(), val);
   },
 
+  addFavicon: function(val) {
+    Vars.add(null, "favicon", val);
+  },
+
   addLocal: function(key, val) {
 
     // Unix won't process arguments with $ in them. Provide a warning if this may have happened
@@ -40,12 +44,20 @@ var Vars = module.exports = {
     Vars.list("env", "Environment Variables");
   },
 
+  listFavicon: function() {
+    Vars.list("favicon", "Favicon");
+  },
+
   listLocals: function() {
     Vars.list("locals", "Locals");
   },
 
   removeEnv: function(key, val) {
     Vars.remove("env", key.toUpperCase());
+  },
+
+  removeFavicon: function() {
+    Vars.remove(null, "favicon");
   },
 
   removeLocal: function(key, val) {
@@ -65,17 +77,20 @@ var Vars = module.exports = {
   list: function(key, title) {
 
     var editor = require("./config-editor"),
-        vars   = editor.get(key) || {},
+        val    = editor.get(key) || {},
         str;
 
     console.log("");
     console.log(chalk.cyan(" " + title + ":"));
     console.log("");
 
-    if (!Object.keys(vars).length)
+    if (!Object.keys(val).length)
       console.log("   There are no " + key + " variables in your project");
     else {
-      str = JSON.stringify(vars, null, 2).split("\n").map(function(line) { return "   " + line; }).join("\n");
+      if ("string" === typeof val)
+        str = "   Your " + chalk.yellow(key) + " is set to " + chalk.yellow(val);
+      else
+        str = JSON.stringify(val, null, 2).split("\n").map(function(line) { return "   " + line; }).join("\n");
       console.log(str);
     }
 
@@ -96,7 +111,8 @@ var Vars = module.exports = {
 
   add: function(parent, key, val) {
 
-    var editor = require("./config-editor");
+    var editor = require("./config-editor"),
+        ref    = (parent) ? parent + "." + key : key;
 
     console.log("");
 
@@ -108,10 +124,11 @@ var Vars = module.exports = {
     else if (/^\-?([0-9]+\.?[0-9]*|\.[0-9]*)$/.test(val))
       val = parseFloat(val);
 
-    editor.set(parent + "." + key, val);
+    editor.set(ref, val);
     editor.save();
 
-    console.log("   " + chalk.cyan("Added:") + " " + parent + " variable " + chalk.yellow(key) + " now contains " + chalk.yellow(val));
+    parent = (parent) ? " " + parent : ""
+    console.log("   " + chalk.cyan("Added:") + parent + " variable " + chalk.yellow(key) + " now contains " + chalk.yellow(val));
     console.log("");
 
   },
@@ -129,19 +146,21 @@ var Vars = module.exports = {
   remove: function(parent, key) {
 
     var editor = require("./config-editor"),
-        prev = editor.get(parent + "." + key);
+        ref    = (parent) ? parent + "." + key : key;
+        prev   = editor.get(ref);
 
     console.log("");
 
-    editor.unset(parent + "." + key);
+    editor.unset(ref);
     editor.save();
 
+    parent = (parent) ? " " + parent : ""
     if ("undefined" === typeof prev)
-      console.log("   " + chalk.red("No Change:") + " there was no " + parent + " variable called " + chalk.yellow(key));
+      console.log("   " + chalk.red("No Change:") + " there was no" + parent + " variable called " + chalk.yellow(key));
     else if ("object" === typeof prev)
-      console.log("   " + chalk.cyan("Removed: ") + parent + " variable " + chalk.yellow(key) + " has been unset");
+      console.log("   " + chalk.cyan("Removed:") + parent + " variable " + chalk.yellow(key) + " has been unset");
     else
-      console.log("   " + chalk.cyan("Removed: ") + parent + " variable " + chalk.yellow(key) + " has been unset from " + chalk.yellow(prev));
+      console.log("   " + chalk.cyan("Removed:") + parent + " variable " + chalk.yellow(key) + " has been unset, previously " + chalk.yellow(prev));
     console.log("");
 
   }

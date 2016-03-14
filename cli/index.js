@@ -47,6 +47,7 @@ module.exports = function() {
     .action(function() {
       data.list();
       vars.listEnvs();
+      vars.listFavicon();
       vars.listLocals();
       middleware.list();
       pipelines.list();
@@ -84,6 +85,18 @@ module.exports = function() {
   program
     .command("env:remove <key>")
     .action(vars.removeEnv);
+
+  program
+    .command("favicon")
+    .action(vars.listFavicon);
+
+  program
+    .command("favicon:add <path>")
+    .action(vars.addFavicon);
+
+  program
+    .command("favicon:remove")
+    .action(vars.removeFavicon);
 
   program
     .command("locals")
