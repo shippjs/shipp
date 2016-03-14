@@ -53,6 +53,21 @@
     "command": ""
   },
   {
+    "command": "favicon",
+    "description": "lists environment variables"
+  },
+  {
+    "command": "favicon:add <path>",
+    "description": "adds a custom favicon path (default /favicon.ico)"
+  },
+  {
+    "command": "favicon:remove",
+    "description": "removes a custom favicon path"
+  },
+  {
+    "command": ""
+  },
+  {
     "command": "locals",
     "description": "lists local template variables"
   },

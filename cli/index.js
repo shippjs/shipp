@@ -86,6 +86,18 @@ module.exports = function() {
     .action(vars.removeEnv);
 
   program
+    .command("favicon")
+    .action(vars.listFavicon);
+
+  program
+    .command("favicon:add <path>")
+    .action(vars.addFavicon);
+
+  program
+    .command("favicon:remove")
+    .action(vars.removeFavicon);
+
+  program
     .command("locals")
     .action(vars.listLocals);
 

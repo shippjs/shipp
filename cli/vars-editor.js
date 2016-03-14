@@ -24,6 +24,10 @@ var Vars = module.exports = {
     Vars.add("env", key.toUpperCase(), val);
   },
 
+  addFavicon: function(val) {
+    Vars.add(null, "favicon", val);
+  },
+
   addLocal: function(key, val) {
 
     // Unix won't process arguments with $ in them. Provide a warning if this may have happened
@@ -40,12 +44,20 @@ var Vars = module.exports = {
     Vars.list("env", "Environment Variables");
   },
 
+  listFavicon: function() {
+    Vars.listSingle("favicon");
+  },
+
   listLocals: function() {
     Vars.list("locals", "Locals");
   },
 
   removeEnv: function(key, val) {
     Vars.remove("env", key.toUpperCase());
+  },
+
+  removeFavicon: function() {
+    Vars.remove(null, "favicon");
   },
 
   removeLocal: function(key, val) {
