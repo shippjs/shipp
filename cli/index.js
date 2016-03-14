@@ -47,6 +47,7 @@ module.exports = function() {
     .action(function() {
       data.list();
       vars.listEnvs();
+      vars.listFavicon();
       vars.listLocals();
       middleware.list();
       pipelines.list();
