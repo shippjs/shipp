@@ -119,7 +119,8 @@ var Vars = module.exports = {
 
   add: function(parent, key, val) {
 
-    var editor = require("./config-editor");
+    var editor = require("./config-editor"),
+        ref    = (parent) ? parent + "." + key : key;
 
     console.log("");
 
@@ -131,10 +132,11 @@ var Vars = module.exports = {
     else if (/^\-?([0-9]+\.?[0-9]*|\.[0-9]*)$/.test(val))
       val = parseFloat(val);
 
-    editor.set(parent + "." + key, val);
+    editor.set(ref, val);
     editor.save();
 
-    console.log("   " + chalk.cyan("Added:") + " " + parent + " variable " + chalk.yellow(key) + " now contains " + chalk.yellow(val));
+    parent = (parent) ? " " + parent : ""
+    console.log("   " + chalk.cyan("Added:") + parent + " variable " + chalk.yellow(key) + " now contains " + chalk.yellow(val));
     console.log("");
 
   },
