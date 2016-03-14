@@ -86,6 +86,29 @@ var Vars = module.exports = {
 
   /**
 
+  **/
+
+  listSingle: function(key) {
+
+    var editor = require("./config-editor"),
+        val    = editor.get(key) || null,
+        str;
+
+    console.log("");
+
+    if (!val)
+      console.log(chalk.cyan("   Status: ") + "You haven't assigned a value to the " + chalk.yellow(key));
+    else {
+      console.log(chalk.cyan("   Status: ") + "Your " + chalk.yellow(key) + " is set to " + chalk.yellow(val));
+    }
+
+    console.log("");
+
+  },
+
+
+  /**
+
     Adds a local variable and acknolwedges with confirmation.
 
     @param {String} parent Which variable to change (e.g. locals, env)
