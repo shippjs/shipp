@@ -45,7 +45,7 @@ var Vars = module.exports = {
   },
 
   listFavicon: function() {
-    Vars.listSingle("favicon");
+    Vars.list("favicon", "Favicon");
   },
 
   listLocals: function() {
