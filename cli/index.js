@@ -172,7 +172,7 @@ module.exports = function() {
 
 function start(env) {
 
-  var server = require("../server/");
+  var server = require("../server/server");
 
   // Start the server
   console.log(chalk.green.bold("\nStarting server...\n"));
