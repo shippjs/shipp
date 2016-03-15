@@ -1,3 +1,10 @@
+### v0.10.0
+*March 15, 2016*
+* Added: exposes express via global.express
+* Improved: functionality extraction
+* Added: body parsing
+* Added: favicon functionality
+
 ### v0.9.8
 *March 14, 2016*
 * Improved: BrowserSync ghostMode disabled by default
