@@ -1,3 +1,8 @@
+### v0.11.0
+*March 16, 2016*
+* Improved: consistent loggging formats
+* Improved: upgrades shipp-server to v0.11.0 (logging)
+
 ### v0.10.2
 *March 16, 2016*
 * Improved: upgrades shipp-server to v0.10.4 (bug fixes)
