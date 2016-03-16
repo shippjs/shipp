@@ -193,7 +193,7 @@ function start(env) {
       });
 
       // Override BrowserSync's default logging to make more consistent with winston
-      bs.instance.logger.setPrefix("{green:info: }")
+      bs.instance.logger.setPrefix("{green:info: }");
 
       global.shipp.on("file:reload", bs.reload);
 

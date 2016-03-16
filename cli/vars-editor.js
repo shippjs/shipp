@@ -127,7 +127,7 @@ var Vars = module.exports = {
     editor.set(ref, val);
     editor.save();
 
-    parent = (parent) ? " " + parent : ""
+    parent = (parent) ? " " + parent : "";
     console.log("   " + chalk.cyan("Added:") + parent + " variable " + chalk.yellow(key) + " now contains " + chalk.yellow(val));
     console.log("");
 
@@ -154,7 +154,7 @@ var Vars = module.exports = {
     editor.unset(ref);
     editor.save();
 
-    parent = (parent) ? " " + parent : ""
+    parent = (parent) ? " " + parent : "";
     if ("undefined" === typeof prev)
       console.log("   " + chalk.red("No Change:") + " there was no" + parent + " variable called " + chalk.yellow(key));
     else if ("object" === typeof prev)
