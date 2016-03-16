@@ -17,7 +17,7 @@
     "chalk": "^1.1.1",
     "commander": "^2.9.0",
     "lodash": "^4.0.1",
-    "shipp-server": "^0.10.3"
+    "shipp-server": "^0.10.4"
   },
   "repository": {
     "type": "git",
