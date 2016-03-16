@@ -1,3 +1,7 @@
+### v0.10.2
+*March 16, 2016*
+* Improved: upgrades shipp-server to v0.10.4 (bug fixes)
+
 ### v0.10.1
 *March 16, 2016*
 * Improved: separates CLI/server repositories
