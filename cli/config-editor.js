@@ -20,7 +20,7 @@ var editor = module.exports = {
 
   config: null,
 
-  defaults: require("../server/defaults.js"),
+  defaults: require("shipp-server/lib/defaults"),
 
   filename: path.join(process.cwd(), "shipp.json"),
 
