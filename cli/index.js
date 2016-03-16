@@ -172,7 +172,7 @@ module.exports = function() {
 
 function start(env) {
 
-  var server = require("../server/server");
+  var server = require("shipp-server");
 
   // Start the server
   console.log(chalk.green.bold("\nStarting server...\n"));
@@ -181,13 +181,21 @@ function start(env) {
     process.env.NODE_ENV = "production";
     server();
   } else {
+
     // Start browser sync and proxy
+    var bs = require("browser-sync").create();
+
     server({ liveRefresh: true }, function() {
-      global.server.init({
-        proxy: "localhost:" + global.ports.server,
+
+      bs.init({
+        proxy: "localhost:" + global.shipp.ports.server,
         ghostMode: false
       });
+
+      global.shipp.on("file:reload", bs.reload);
+
     });
+
   }
 
 }
