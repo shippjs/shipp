@@ -28,16 +28,17 @@ How do we do this with zero configuration? See below!
 
 ## Features
 
-* Live browser refresh via [BrowserSync](https://github.com/Browsersync/browser-sync)  
-* Automatic compilation of templating libraries (Jade, Handlebars, JSX, etc.)  
-* Automatic compilation of transpile-to-JS language (CoffeeScript, LiveScript, etc.)  
-* Automatic compilation of stylesheet languages (Less, Sass, Stylus)  
+* Live browser refresh via [BrowserSync](https://github.com/Browsersync/browser-sync)
+* Insanely smart routing inferred from directory structure (with wildcards)
+* Advanced chaining of preprocessors (CoffeeScript > Babel > UglifyJS)
+* Automatic compilation of templating libraries (Jade, Handlebars, JSX, etc.)
+* Automatic compilation of transpile-to-JS language (CoffeeScript, LiveScript, etc.)
+* Automatic compilation of stylesheet languages (Less, Sass, Stylus)
 * Automatic bundling of single page apps via [webpack](https://github.com/webpack/webpack)
 * No excess waste: compiled files are stored in-memory, leaving your file system pristine
-* Support for advanced chaining of pipelines (CoffeeScript > Babel > UglifyJS)  
-* JSON REST API via [json-server](https://github.com/typicode/json-server)  
-* Cookie, session and environment variables  
-* Database querying via [Universql](https://github.com/brandoncarl/universql)  
+* JSON REST API via [json-server](https://github.com/typicode/json-server)
+* Cookie, session and environment variables
+* Database querying via [Universql](https://github.com/brandoncarl/universql)
 * Custom middleware built on [express](https://github.com/expressjs/express)
 * Local and environment variables with advanced injection
 * Optional caching (on by default) of templated routes in production (with compression!)
@@ -45,7 +46,7 @@ How do we do this with zero configuration? See below!
 
 ## Zero Configuration
 
-By using a core set of rules, we are able to use zero configuration.  
+By using a core set of rules, we are able to use zero configuration.
 
 1. **Compilation pipelines are inferred from, and attached to file extensions.**
 For example, `.coffee` files will be automatically transpiled by CoffeeScript,
