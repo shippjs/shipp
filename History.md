@@ -1,3 +1,7 @@
+### v0.11.2
+*March 16, 2016*
+* Improved: upgrades shipp-server to v0.11.4 (bug fixes)
+
 ### v0.11.1
 *March 16, 2016*
 * Improved: upgrades shipp-server to v0.11.3 (lru-caching/relative files)
