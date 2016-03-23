@@ -1,3 +1,7 @@
+### v0.11.4
+*March 21, 2016*
+* Improved: upgrades shipp-server to v0.11.6 (query improvements)
+
 ### v0.11.3
 *March 16, 2016*
 * Improved: upgrades shipp-server to v0.11.5 (route fixes)
