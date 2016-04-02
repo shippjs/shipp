@@ -1,3 +1,7 @@
+### v0.12.0
+*April 2, 2016*
+* Improved: upgrades shipp-server to v0.12.3 (cache warming/invalidation and bug fixes)
+
 ### v0.11.4
 *March 21, 2016*
 * Improved: upgrades shipp-server to v0.11.6 (query improvements)

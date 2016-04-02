@@ -1,6 +1,6 @@
 {
   "name": "shipp",
-  "version": "0.11.4",
+  "version": "0.12.0",
   "description": "Dev server that quickly gets you up and running",
   "bin": "./bin/index.js",
   "directories": {
@@ -17,7 +17,7 @@
     "chalk": "^1.1.1",
     "commander": "^2.9.0",
     "lodash": "^4.0.1",
-    "shipp-server": "^0.11.6"
+    "shipp-server": "^0.12.3"
   },
   "repository": {
     "type": "git",
