@@ -1,3 +1,17 @@
+### v0.13.0
+*April 20, 2016*
+* Moves repo to new location
+* Upgrades shipp-server to v0.13.3. 
+* 404 errors now include URLs
+* Adds ability to make internal requests via global.shipp.request
+* Adds cache warming, pausing and cooling
+* Adds wildcard compilation via pipemaker v0.5.0
+* Creates an "assets" global for hashing assets into production
+* Fixes URL resolution issues related to trailing slashes and query strings
+* Local environment variables now take precedence over shipp.json environment variables
+* Removes x-powered-by (for security)
+* Router now ignores directories named "template" and templates
+
 ### v0.12.0
 *April 2, 2016*
 * Improved: upgrades shipp-server to v0.12.3 (cache warming/invalidation and bug fixes)
