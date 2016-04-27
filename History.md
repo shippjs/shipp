@@ -1,7 +1,14 @@
+### v0.14.0
+*April 27, 2016*
+This version includes a breaking change. Please see note on our semver policy.
+* Gets rid of BrowserSync: it was over-refreshing due to lack of asset identification
+* Creates custom proxy with hot-reloading of JS, CSS and images and HTML refresh
+* Updates shipp-server to v0.14.0 (hot reloading of directives, data and much more)
+
 ### v0.13.0
 *April 20, 2016*
 * Moves repo to new location
-* Upgrades shipp-server to v0.13.3. 
+* Upgrades shipp-server to v0.13.3.
 * 404 errors now include URLs
 * Adds ability to make internal requests via global.shipp.request
 * Adds cache warming, pausing and cooling
