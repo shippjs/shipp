@@ -28,7 +28,7 @@ function shippImage(resource) {
 shippSocket.on("route:refresh", function(data) {
 
   if (!shippReady) return;
-  var regex = new RegExp(data.route);
+  var regex = new RegExp(data.route.replace(/:slug.*$/, ".+"));
 
   // Check for location refresh
   if (regex.test(window.location.pathname)) return window.location.reload();
