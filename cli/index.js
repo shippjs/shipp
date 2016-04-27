@@ -186,7 +186,7 @@ function start(env) {
     var proxy = require("../proxy");
 
     server({ liveRefresh: true }, function() {
-      proxy(function(err, port) {
+      proxy(function(err) {
         if (err) {
           global.shipp.logger.error("Could not start proxy");
           process.exit();
