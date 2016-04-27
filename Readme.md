@@ -1,4 +1,4 @@
-<p align="center"><img src="https://cldup.com/xBn8J2J6xm.png" alt="shipp" width=124/></p>
+<p align="center"><img src="https://avatars2.githubusercontent.com/u/18548257?v=3&s=200" alt="shipp" width=124/></p>
 
 ## Installation
 
