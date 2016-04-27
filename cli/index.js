@@ -182,21 +182,18 @@ function start(env) {
     server();
   } else {
 
-    // Start browser sync and proxy
-    var bs = require("browser-sync").create();
+    // Start proxy
+    var proxy = require("../proxy");
 
     server({ liveRefresh: true }, function() {
-
-      bs.init({
-        proxy: "localhost:" + global.shipp.ports.server,
-        ghostMode: false
+      proxy(function(err, port) {
+        if (err) {
+          global.shipp.logger.error("Could not start proxy");
+          process.exit();
+        } else {
+          global.shipp.log("Listening!");
+        }
       });
-
-      // Override BrowserSync's default logging to make more consistent with winston
-      bs.instance.logger.setPrefix("{green:info: }");
-
-      global.shipp.on("file:reload", bs.reload);
-
     });
 
   }
