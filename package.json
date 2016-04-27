@@ -17,7 +17,8 @@
     "commander": "^2.9.0",
     "http-proxy": "^1.13.2",
     "lodash": "^4.0.1",
-    "shipp-server": "^0.14.0"
+    "shipp-server": "^0.14.0",
+    "socket.io": "^1.4.5"
   },
   "repository": {
     "type": "git",
