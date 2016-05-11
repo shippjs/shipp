@@ -77,13 +77,13 @@ module.exports = function(next) {
 
   // Watch for file refreshes
   io = socketio(server);
-  global.shipp.on("route:refresh", function(route) {
+  global.shipp.on("route:refresh", function(data) {
     // Convert to regex
-    if (route instanceof RegExp)
-      route = route.toString().slice(1, -1);
+    if (data.route instanceof RegExp)
+      data.route = data.route.toString().slice(1, -1);
     else
-      route = "^" + route.replace(/[\\^$.*+?()[\]{}|]/g, "\\$&").replace(":slug", ".+") + "$";
-    io.emit("route:refresh", { route: route });
+      data.route = "^" + data.route.replace(/[\\^$.*+?()[\]{}|]/g, "\\$&").replace(":slug", ".+") + "$";
+    io.emit("route:refresh", data);
   });
 
   // Callback once port has been found
