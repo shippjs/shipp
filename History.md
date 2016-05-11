@@ -1,3 +1,8 @@
+### v0.15.0
+*May 11, 2016*
+Our API is currently in flux but in process of stabilizing. Minor versions may be breaking until we reach v1.0.0.
+* Updates shipp-server to v0.15.0 (API and directive refinements)
+
 ### v0.14.0
 *April 27, 2016*
 This version includes a breaking change. Please see note on our semver policy.
