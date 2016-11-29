@@ -1,3 +1,7 @@
+### v0.16.0
+*November 29, 2016*
+* Updates shipp-server to v0.16.0 (websockets and more powerful data queries)
+
 ### v0.15.0
 *May 11, 2016*
 Our API is currently in flux but in process of stabilizing. Minor versions may be breaking until we reach v1.0.0.
