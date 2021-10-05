@@ -30,11 +30,11 @@ How do we do this with zero configuration? See below!
 
 * Insanely smart routing inferred from directory structure (with wildcards)
 * Live browser refresh
-* Advanced chaining of preprocessors (CoffeeScript > Babel > UglifyJS)
-* Automatic compilation of templating libraries (Jade, Handlebars, JSX, etc.)
-* Automatic compilation of transpile-to-JS language (CoffeeScript, LiveScript, etc.)
-* Automatic compilation of stylesheet languages (Less, Sass, Stylus)
-* Automatic bundling of single page apps via [webpack](https://github.com/webpack/webpack)
+* [Removed] Advanced chaining of preprocessors (CoffeeScript > Babel > UglifyJS)
+* [Removed] Automatic compilation of templating libraries (Jade, Handlebars, JSX, etc.)
+* [Removed] Automatic compilation of transpile-to-JS language (CoffeeScript, LiveScript, etc.)
+* [Removed] Automatic compilation of stylesheet languages (Less, Sass, Stylus)
+* [Removed] Automatic bundling of single page apps via [webpack](https://github.com/webpack/webpack)
 * No excess waste: compiled files are stored in-memory, leaving your file system pristine
 * Powerful directives
 * Ability to store and mock data
